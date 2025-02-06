@@ -1,0 +1,2 @@
+# aiueodayon.github.io
+originalweb
