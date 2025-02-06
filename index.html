@@ -30,11 +30,24 @@
             font-weight: bold;
         }
     </style>
+    <script>
+        async function fetchIP() {
+            try {
+                let response = await fetch('https://api64.ipify.org?format=json');
+                let data = await response.json();
+                document.getElementById('ip-address').innerText = `Your IP is ${data.ip}!`;
+            } catch (error) {
+                console.error('Error fetching IP:', error);
+            }
+        }
+        window.onload = fetchIP;
+    </script>
 </head>
 <body>
     <div class="container">
         <img src="https://via.placeholder.com/150" alt="Profile Picture">
-        <h1>Hello, I'm [Your Name]!</h1>
+        <h1>Hello, I'm Astral!</h1>
+        <p id="ip-address">Fetching your IP...</p>
         <p>Welcome to my GitHub profile page. I am a passionate developer who loves coding and open-source projects.</p>
         <p>Feel free to check out my repositories and connect with me on social media!</p>
         <p>
