@@ -6,28 +6,46 @@
     <title>My GitHub Profile</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             text-align: center;
             padding: 50px;
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
         }
         .container {
             max-width: 600px;
             margin: auto;
             background: white;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
         }
         img {
             border-radius: 50%;
             width: 150px;
             height: 150px;
+            border: 5px solid #ff9a9e;
+        }
+        h1 {
+            color: #ff4a6e;
+            font-size: 2em;
+        }
+        p {
+            color: #555;
+            font-size: 1.2em;
         }
         a {
             text-decoration: none;
-            color: #0366d6;
+            color: white;
             font-weight: bold;
+            background: #ff4a6e;
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 5px;
+            transition: 0.3s;
+        }
+        a:hover {
+            background: #ff769e;
         }
     </style>
     <script>
@@ -47,14 +65,14 @@ Location: ${data.city}, ${data.region}, ${data.country_name}`;
 </head>
 <body>
     <div class="container">
-        <img src="profile.png" alt="Profile Picture">
-        <h1>Hello, I'm Astral!</h1>
+        <img src="profile.jpg" alt="Profile Picture">
+        <h1>✨ Hello, I'm Astral! ✨</h1>
         <p id="ip-info">Fetching your IP details...</p>
-        <p>Welcome to my GitHub profile page. I am a passionate developer who loves coding and open-source projects.</p>
-        <p>Feel free to check out my repositories and connect with me on social media!</p>
+        <p>Welcome to my adorable GitHub profile! I love coding, open-source projects, and making the web a cuter place! 💖</p>
+        <p>Let's connect and make something magical together! ✨</p>
         <p>
-            <a href="https://github.com/yourusername" target="_blank">GitHub</a> |
-            <a href="https://twitter.com/yourusername" target="_blank">Twitter</a> |
+            <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+            <a href="https://twitter.com/yourusername" target="_blank">Twitter</a>
             <a href="https://www.linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
         </p>
     </div>
