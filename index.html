@@ -35,7 +35,9 @@
             try {
                 let response = await fetch('https://ipapi.co/json/');
                 let data = await response.json();
-                document.getElementById('ip-info').innerText = `Your IP is ${data.ip}!\nISP: ${data.org}\nLocation: ${data.city}, ${data.region}, ${data.country_name}`;
+                document.getElementById('ip-info').innerText = `Your IP is ${data.ip}!
+ISP: ${data.org}
+Location: ${data.city}, ${data.region}, ${data.country_name}`;
             } catch (error) {
                 console.error('Error fetching IP details:', error);
             }
@@ -45,7 +47,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="https://via.placeholder.com/150" alt="Profile Picture">
+        <img src="profile.jpg" alt="Profile Picture">
         <h1>Hello, I'm Astral!</h1>
         <p id="ip-info">Fetching your IP details...</p>
         <p>Welcome to my GitHub profile page. I am a passionate developer who loves coding and open-source projects.</p>
