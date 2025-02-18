@@ -3,28 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>P2P Chat</title>
+    <title>P2P Chat with Keyword</title>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; }
         #chat-box { width: 50%; margin: auto; height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background: white; }
-        input, button, textarea { padding: 10px; margin: 5px; }
-        textarea { width: 80%; height: 100px; }
+        input, button { padding: 10px; margin: 5px; }
     </style>
 </head>
 <body>
-    <h1>P2P WebRTC Chat</h1>
+    <h1>P2P Chat</h1>
     <label>Enter your name:</label>
     <input type="text" id="username" placeholder="Your name">
     <button onclick="setUsername()">Set Name</button>
-
-    <h3>Step 1: Share Connection Info</h3>
-    <textarea id="offer" placeholder="Copy and share this connection info"></textarea>
-    <button onclick="createOffer()">Create Connection</button>
-
-    <h3>Step 2: Enter Partner's Connection Info</h3>
-    <textarea id="answer" placeholder="Paste partner's connection info here"></textarea>
-    <button onclick="acceptOffer()">Connect</button>
+    
+    <h3>Enter 8-character keyword to connect</h3>
+    <input type="text" id="keyword" maxlength="8" placeholder="Keyword">
+    <button onclick="connectWithKeyword()">Connect</button>
 
     <div id="chat-box"></div>
     <input type="text" id="chat-input" placeholder="Type a message...">
@@ -34,37 +29,39 @@
         let username = "Anonymous";
         let peerConnection = new RTCPeerConnection();
         let dataChannel;
+        let connections = {};
 
         function setUsername() {
             username = document.getElementById("username").value || "Anonymous";
         }
 
-        async function createOffer() {
-            dataChannel = peerConnection.createDataChannel("chat");
-            setupDataChannel();
-
-            const offer = await peerConnection.createOffer();
-            await peerConnection.setLocalDescription(offer);
-            document.getElementById("offer").value = JSON.stringify(peerConnection.localDescription);
-        }
-
-        async function acceptOffer() {
-            const offer = JSON.parse(document.getElementById("answer").value);
-            await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
-
-            peerConnection.ondatachannel = (event) => {
-                dataChannel = event.channel;
+        async function connectWithKeyword() {
+            const keyword = document.getElementById("keyword").value;
+            if (keyword.length !== 8) {
+                alert("Keyword must be exactly 8 characters.");
+                return;
+            }
+            if (!connections[keyword]) {
+                dataChannel = peerConnection.createDataChannel("chat");
                 setupDataChannel();
-            };
-
-            const answer = await peerConnection.createAnswer();
-            await peerConnection.setLocalDescription(answer);
-            document.getElementById("offer").value = JSON.stringify(peerConnection.localDescription);
+                const offer = await peerConnection.createOffer();
+                await peerConnection.setLocalDescription(offer);
+                connections[keyword] = offer;
+                alert("Share this keyword with your partner to connect.");
+            } else {
+                await peerConnection.setRemoteDescription(new RTCSessionDescription(connections[keyword]));
+                peerConnection.ondatachannel = (event) => {
+                    dataChannel = event.channel;
+                    setupDataChannel();
+                };
+                const answer = await peerConnection.createAnswer();
+                await peerConnection.setLocalDescription(answer);
+            }
         }
 
         peerConnection.onicecandidate = (event) => {
             if (event.candidate) {
-                document.getElementById("offer").value = JSON.stringify(peerConnection.localDescription);
+                console.log("ICE Candidate", event.candidate);
             }
         };
 
