@@ -3,143 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Profile</title>
+    <title>P2P Chat</title>
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     <style>
-        body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-        }
-        img {
-            border-radius: 50%;
-            width: 150px;
-            height: 150px;
-            border: 5px solid #ff9a9e;
-        }
-        h1 {
-            color: #ff4a6e;
-            font-size: 2em;
-        }
-        p {
-            color: #555;
-            font-size: 1.2em;
-        }
-        a {
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            background: #ff4a6e;
-            padding: 10px 15px;
-            border-radius: 10px;
-            display: inline-block;
-            margin: 5px;
-            transition: 0.3s;
-        }
-        a:hover {
-            background: #ff769e;
-        }
-        #chat-box {
-            width: 100%;
-            max-width: 500px;
-            height: 300px;
-            overflow-y: auto;
-            background: #fff5f7;
-            border: 2px solid #ff9a9e;
-            border-radius: 10px;
-            padding: 10px;
-            margin: 20px auto;
-            text-align: left;
-        }
-        #chat-input {
-            width: 80%;
-            padding: 10px;
-            border: 2px solid #ff9a9e;
-            border-radius: 10px;
-            margin-top: 10px;
-        }
-        #send-button {
-            padding: 10px;
-            background: #ff4a6e;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        #send-button:hover {
-            background: #ff769e;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; }
+        #chat-box { width: 50%; margin: auto; height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background: white; }
+        input, button, textarea { padding: 10px; margin: 5px; }
+        textarea { width: 80%; height: 100px; }
     </style>
-    <script>
-        async function fetchIPDetails() {
-            try {
-                let response = await fetch('https://ipapi.co/json/');
-                let data = await response.json();
-                document.getElementById('ip-info').innerText = `Your IP is ${data.ip}!
-ISP: ${data.org}
-Location: ${data.city}, ${data.region}, ${data.country_name}`;
-            } catch (error) {
-                console.error('Error fetching IP details:', error);
-            }
-        }
-        
-        function sendMessage() {
-            let input = document.getElementById('chat-input');
-            let message = input.value.trim();
-            if (message) {
-                let chatBox = document.getElementById('chat-box');
-                let time = new Date().toLocaleTimeString();
-                chatBox.innerHTML += `<p><strong>You:</strong> ${message} <span style='font-size:0.8em;color:#888;'>(${time})</span></p>`;
-                chatBox.scrollTop = chatBox.scrollHeight;
-                input.value = '';
-                saveMessage(`You: ${message} (${time})`);
-            }
-        }
-        
-        function saveMessage(message) {
-            let logs = localStorage.getItem('chatLogs') ? JSON.parse(localStorage.getItem('chatLogs')) : [];
-            logs.push(message);
-            localStorage.setItem('chatLogs', JSON.stringify(logs));
-        }
-        
-        function loadChatLogs() {
-            let chatBox = document.getElementById('chat-box');
-            let logs = localStorage.getItem('chatLogs') ? JSON.parse(localStorage.getItem('chatLogs')) : [];
-            logs.forEach(msg => {
-                chatBox.innerHTML += `<p>${msg}</p>`;
-            });
-        }
-        
-        window.onload = function() {
-            fetchIPDetails();
-            loadChatLogs();
-        };
-    </script>
 </head>
 <body>
-    <div class="container">
-        <img src="profile.jpg" alt="Profile Picture">
-        <h1>✨ Hello, I'm Astral! ✨</h1>
-        <p id="ip-info">Fetching your IP details...</p>
-        <p>Welcome to my adorable GitHub profile! I love coding, open-source projects, and making the web a cuter place! 💖</p>
-        <p>Let's connect and make something magical together! ✨</p>
-        <p>
-            <a href="https://github.com/yourusername" target="_blank">GitHub</a>
-            <a href="https://twitter.com/yourusername" target="_blank">Twitter</a>
-            <a href="https://www.linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
-        </p>
-        <div id="chat-box"></div>
-        <input type="text" id="chat-input" placeholder="Type your message here...">
-        <button id="send-button" onclick="sendMessage()">Send</button>
-    </div>
+    <h1>P2P WebRTC Chat</h1>
+    <label>Enter your name:</label>
+    <input type="text" id="username" placeholder="Your name">
+    <button onclick="setUsername()">Set Name</button>
+
+    <h3>Step 1: Share Connection Info</h3>
+    <textarea id="offer" placeholder="Copy and share this connection info"></textarea>
+    <button onclick="createOffer()">Create Connection</button>
+
+    <h3>Step 2: Enter Partner's Connection Info</h3>
+    <textarea id="answer" placeholder="Paste partner's connection info here"></textarea>
+    <button onclick="acceptOffer()">Connect</button>
+
+    <div id="chat-box"></div>
+    <input type="text" id="chat-input" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        let username = "Anonymous";
+        let peerConnection = new RTCPeerConnection();
+        let dataChannel;
+
+        function setUsername() {
+            username = document.getElementById("username").value || "Anonymous";
+        }
+
+        async function createOffer() {
+            dataChannel = peerConnection.createDataChannel("chat");
+            setupDataChannel();
+
+            const offer = await peerConnection.createOffer();
+            await peerConnection.setLocalDescription(offer);
+            document.getElementById("offer").value = JSON.stringify(peerConnection.localDescription);
+        }
+
+        async function acceptOffer() {
+            const offer = JSON.parse(document.getElementById("answer").value);
+            await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
+
+            peerConnection.ondatachannel = (event) => {
+                dataChannel = event.channel;
+                setupDataChannel();
+            };
+
+            const answer = await peerConnection.createAnswer();
+            await peerConnection.setLocalDescription(answer);
+            document.getElementById("offer").value = JSON.stringify(peerConnection.localDescription);
+        }
+
+        peerConnection.onicecandidate = (event) => {
+            if (event.candidate) {
+                document.getElementById("offer").value = JSON.stringify(peerConnection.localDescription);
+            }
+        };
+
+        function setupDataChannel() {
+            dataChannel.onopen = () => console.log("DataChannel Opened!");
+            dataChannel.onmessage = (event) => {
+                const chatBox = document.getElementById("chat-box");
+                chatBox.innerHTML += `<p><strong>Partner:</strong> ${event.data}</p>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            };
+        }
+
+        function sendMessage() {
+            if (!dataChannel || dataChannel.readyState !== "open") {
+                alert("Connection not established. Please wait.");
+                return;
+            }
+            const input = document.getElementById("chat-input");
+            const message = `${username}: ${input.value}`;
+            dataChannel.send(message);
+            
+            const chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML += `<p><strong>You:</strong> ${input.value}</p>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+            input.value = "";
+        }
+    </script>
 </body>
 </html>
