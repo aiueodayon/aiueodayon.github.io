@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,37 +47,35 @@
         a:hover {
             background: #ff769e;
         }
-        .chat-container {
-            margin-top: 20px;
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        .chat-box {
-            max-height: 200px;
+        #chat-box {
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
             overflow-y: auto;
-            border: 1px solid #ddd;
-            margin-bottom: 10px;
+            background: #fff5f7;
+            border: 2px solid #ff9a9e;
+            border-radius: 10px;
             padding: 10px;
-            border-radius: 5px;
-            background: #fff;
+            margin: 20px auto;
+            text-align: left;
         }
         #chat-input {
-            width: 70%;
+            width: 80%;
             padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            border: 2px solid #ff9a9e;
+            border-radius: 10px;
+            margin-top: 10px;
         }
-        button {
-            padding: 10px 15px;
+        #send-button {
+            padding: 10px;
             background: #ff4a6e;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
+            transition: 0.3s;
         }
-        button:hover {
+        #send-button:hover {
             background: #ff769e;
         }
     </style>
@@ -93,23 +91,43 @@ Location: ${data.city}, ${data.region}, ${data.country_name}`;
                 console.error('Error fetching IP details:', error);
             }
         }
-        window.onload = fetchIPDetails;
-
+        
         function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const message = input.value.trim();
+            let input = document.getElementById('chat-input');
+            let message = input.value.trim();
             if (message) {
-                const chatBox = document.getElementById('chat-box');
-                chatBox.innerHTML += `<div>${message}</div>`;
+                let chatBox = document.getElementById('chat-box');
+                let time = new Date().toLocaleTimeString();
+                chatBox.innerHTML += `<p><strong>You:</strong> ${message} <span style='font-size:0.8em;color:#888;'>(${time})</span></p>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
                 input.value = '';
-                chatBox.scrollTop = chatBox.scrollHeight; // スクロールを最新のメッセージに合わせる
+                saveMessage(`You: ${message} (${time})`);
             }
         }
+        
+        function saveMessage(message) {
+            let logs = localStorage.getItem('chatLogs') ? JSON.parse(localStorage.getItem('chatLogs')) : [];
+            logs.push(message);
+            localStorage.setItem('chatLogs', JSON.stringify(logs));
+        }
+        
+        function loadChatLogs() {
+            let chatBox = document.getElementById('chat-box');
+            let logs = localStorage.getItem('chatLogs') ? JSON.parse(localStorage.getItem('chatLogs')) : [];
+            logs.forEach(msg => {
+                chatBox.innerHTML += `<p>${msg}</p>`;
+            });
+        }
+        
+        window.onload = function() {
+            fetchIPDetails();
+            loadChatLogs();
+        };
     </script>
 </head>
 <body>
     <div class="container">
-        <img src="profile.png" alt="Profile Picture">
+        <img src="profile.jpg" alt="Profile Picture">
         <h1>✨ Hello, I'm Astral! ✨</h1>
         <p id="ip-info">Fetching your IP details...</p>
         <p>Welcome to my adorable GitHub profile! I love coding, open-source projects, and making the web a cuter place! 💖</p>
@@ -119,15 +137,9 @@ Location: ${data.city}, ${data.region}, ${data.country_name}`;
             <a href="https://twitter.com/yourusername" target="_blank">Twitter</a>
             <a href="https://www.linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
         </p>
-        
-        <div class="chat-container">
-            <h2>💬 Chat with Me!</h2>
-            <div class="chat-box" id="chat-box">
-                <!-- チャットメッセージがここに表示されます -->
-            </div>
-            <input type="text" id="chat-input" placeholder="メッセージを入力..." />
-            <button onclick="sendMessage()">送信</button>
-        </div>
+        <div id="chat-box"></div>
+        <input type="text" id="chat-input" placeholder="Type your message here...">
+        <button id="send-button" onclick="sendMessage()">Send</button>
     </div>
 </body>
 </html>
