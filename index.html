@@ -1,93 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>P2P Chat with Keyword</title>
-    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; }
-        #chat-box { width: 50%; margin: auto; height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background: white; }
-        input, button { padding: 10px; margin: 5px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>プロフィール</title>
+  <style>
+    body {
+      background-color: #fefefe;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .profile-container {
+      background-color: #fff;
+      max-width: 400px;
+      width: 90%;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .profile-container img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ff9aa2;
+      margin-bottom: 15px;
+    }
+    .profile-container h1 {
+      font-size: 24px;
+      margin: 10px 0;
+      color: #333;
+    }
+    .profile-container p {
+      font-size: 16px;
+      color: #666;
+      line-height: 1.5;
+    }
+    .social-links {
+      margin-top: 20px;
+    }
+    .social-links a {
+      text-decoration: none;
+      color: #fff;
+      background-color: #ff9aa2;
+      padding: 10px 15px;
+      border-radius: 5px;
+      margin: 0 5px;
+      transition: background-color 0.3s;
+    }
+    .social-links a:hover {
+      background-color: #ffb7b2;
+    }
+  </style>
 </head>
 <body>
-    <h1>P2P Chat</h1>
-    <label>Enter your name:</label>
-    <input type="text" id="username" placeholder="Your name">
-    <button onclick="setUsername()">Set Name</button>
-    
-    <h3>Enter 8-character keyword to connect</h3>
-    <input type="text" id="keyword" maxlength="8" placeholder="Keyword">
-    <button onclick="connectWithKeyword()">Connect</button>
-
-    <div id="chat-box"></div>
-    <input type="text" id="chat-input" placeholder="Type a message...">
-    <button onclick="sendMessage()">Send</button>
-
-    <script>
-        let username = "Anonymous";
-        let peerConnection = new RTCPeerConnection();
-        let dataChannel;
-        let connections = {};
-
-        function setUsername() {
-            username = document.getElementById("username").value || "Anonymous";
-        }
-
-        async function connectWithKeyword() {
-            const keyword = document.getElementById("keyword").value;
-            if (keyword.length !== 8) {
-                alert("Keyword must be exactly 8 characters.");
-                return;
-            }
-            if (!connections[keyword]) {
-                dataChannel = peerConnection.createDataChannel("chat");
-                setupDataChannel();
-                const offer = await peerConnection.createOffer();
-                await peerConnection.setLocalDescription(offer);
-                connections[keyword] = offer;
-                alert("Share this keyword with your partner to connect.");
-            } else {
-                await peerConnection.setRemoteDescription(new RTCSessionDescription(connections[keyword]));
-                peerConnection.ondatachannel = (event) => {
-                    dataChannel = event.channel;
-                    setupDataChannel();
-                };
-                const answer = await peerConnection.createAnswer();
-                await peerConnection.setLocalDescription(answer);
-            }
-        }
-
-        peerConnection.onicecandidate = (event) => {
-            if (event.candidate) {
-                console.log("ICE Candidate", event.candidate);
-            }
-        };
-
-        function setupDataChannel() {
-            dataChannel.onopen = () => console.log("DataChannel Opened!");
-            dataChannel.onmessage = (event) => {
-                const chatBox = document.getElementById("chat-box");
-                chatBox.innerHTML += `<p><strong>Partner:</strong> ${event.data}</p>`;
-                chatBox.scrollTop = chatBox.scrollHeight;
-            };
-        }
-
-        function sendMessage() {
-            if (!dataChannel || dataChannel.readyState !== "open") {
-                alert("Connection not established. Please wait.");
-                return;
-            }
-            const input = document.getElementById("chat-input");
-            const message = `${username}: ${input.value}`;
-            dataChannel.send(message);
-            
-            const chatBox = document.getElementById("chat-box");
-            chatBox.innerHTML += `<p><strong>You:</strong> ${input.value}</p>`;
-            chatBox.scrollTop = chatBox.scrollHeight;
-            input.value = "";
-        }
-    </script>
+  <div class="profile-container">
+    <img src="your-profile-image.jpg" alt="プロフィール画像">
+    <h1>あなたの名前</h1>
+    <p>   
+        Hello!!!
+    </p>
+    <div class="social-links">
+      <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+      <a href="https://twitter.com/yourusername" target="_blank">Twitter</a>
+    </div>
+  </div>
 </body>
 </html>
