@@ -57,20 +57,54 @@
     .social-links a:hover {
       background-color: #ffb7b2;
     }
+    .fps-counter {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      font-size: 14px;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
   <div class="profile-container">
     <img src="profile.png" alt="Profile Image">
-    <h1>Your Name</h1>
+    <h1>Astral</h1>
     <p>
       Hello! I'm a junior high school student.<br>
       I believe in simple design and a cute style.
     </p>
     <div class="social-links">
-      <a href="https://github.com/yourusername" target="_blank">GitHub</a>
-      <a href="https://twitter.com/yourusername" target="_blank">Twitter</a>
+      <a href="https://github.com/aiueodayon" target="_blank">GitHub</a>
+      <a href="https://twitter.com/" target="_blank">Twitter</a>
     </div>
   </div>
+
+  <div class="fps-counter" id="fpsCounter">FPS: -- | Version: 27.0</div>
+
+  <script>
+    let lastFrameTime = performance.now();
+    let frameCount = 0;
+    let fps = 0;
+
+    function updateFPS() {
+      let now = performance.now();
+      frameCount++;
+
+      if (now - lastFrameTime >= 1000) {
+        fps = frameCount;
+        frameCount = 0;
+        lastFrameTime = now;
+        document.getElementById("fpsCounter").innerText = `FPS: ${fps} | Version: 1.0`;
+      }
+      requestAnimationFrame(updateFPS);
+    }
+
+    updateFPS();
+  </script>
+
 </body>
 </html>
