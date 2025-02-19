@@ -5,46 +5,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Profile</title>
   <style>
+    /* Background video styling */
     body {
-      background-color: #fefefe;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       margin: 0;
       padding: 0;
+      overflow: hidden;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      position: relative;
     }
+
+    /* Video background */
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    /* Cloud-shaped profile container */
     .profile-container {
-      background-color: #fff;
-      max-width: 400px;
-      width: 90%;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      padding: 30px;
       text-align: center;
+      background: white;
+      position: relative;
+      z-index: 2;
+      clip-path: url(#cloud-shape);
+      -webkit-clip-path: url(#cloud-shape);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
+
     .profile-container img {
-      width: 150px;
-      height: 150px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       object-fit: cover;
       border: 3px solid #ff9aa2;
       margin-bottom: 15px;
     }
+
     .profile-container h1 {
       font-size: 24px;
       margin: 10px 0;
       color: #333;
     }
+
     .profile-container p {
       font-size: 16px;
       color: #666;
       line-height: 1.5;
     }
+
     .social-links {
       margin-top: 20px;
     }
+
     .social-links a {
       text-decoration: none;
       color: #fff;
@@ -54,9 +76,12 @@
       margin: 0 5px;
       transition: background-color 0.3s;
     }
+
     .social-links a:hover {
       background-color: #ffb7b2;
     }
+
+    /* FPS Counter */
     .fps-counter {
       position: fixed;
       bottom: 10px;
@@ -66,13 +91,38 @@
       font-size: 14px;
       padding: 5px 10px;
       border-radius: 5px;
+      z-index: 3;
     }
   </style>
 </head>
 <body>
+
+  <!-- Background Video -->
+  <video autoplay loop muted>
+    <source src="back.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- SVG Cloud Shape -->
+  <svg width="0" height="0">
+    <defs>
+      <clipPath id="cloud-shape" clipPathUnits="objectBoundingBox">
+        <path d="M0.35,0.05 C0.2,0, 0.05,0.2, 0.05,0.4 
+                 C0.05,0.55, 0.2,0.6, 0.2,0.7 
+                 C0.1,0.9, 0.2,1, 0.35,0.95 
+                 C0.4,1, 0.6,1, 0.65,0.95 
+                 C0.8,1, 0.9,0.9, 0.8,0.7 
+                 C0.9,0.6, 0.95,0.55, 0.95,0.4 
+                 C0.95,0.2, 0.8,0, 0.65,0.05 
+                 C0.6,-0.02, 0.4,-0.02, 0.35,0.05 Z" />
+      </clipPath>
+    </defs>
+  </svg>
+
+  <!-- Profile Container -->
   <div class="profile-container">
     <img src="profile.png" alt="Profile Image">
-    <h1>Astral</h1>
+    <h1>Your Name</h1>
     <p>
       Hello! I'm a junior high school student.<br>
       I believe in simple design and a cute style.
@@ -83,7 +133,9 @@
     </div>
   </div>
 
-  <div class="fps-counter" id="fpsCounter">FPS: -- | Version: 27.0</div>
+
+  <!-- FPS Counter -->
+  <div class="fps-counter" id="fpsCounter">FPS: -- | Version: 30.0</div>
 
   <script>
     let lastFrameTime = performance.now();
@@ -98,7 +150,7 @@
         fps = frameCount;
         frameCount = 0;
         lastFrameTime = now;
-        document.getElementById("fpsCounter").innerText = `FPS: ${fps} | Version: 1.0`;
+        document.getElementById("fpsCounter").innerText = `FPS: ${fps} | Version: 30.0`;
       }
       requestAnimationFrame(updateFPS);
     }
