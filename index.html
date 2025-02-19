@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Profile</title>
   <style>
-    /* Background video styling */
     body {
       margin: 0;
       padding: 0;
@@ -16,22 +15,10 @@
       justify-content: center;
       min-height: 100vh;
       position: relative;
+      background-color: #ffebcd; /* 背景色 */
     }
 
-    /* Video background */
-    video {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      transform: translate(-50%, -50%);
-      z-index: -1;
-    }
-
-
-    /* Cloud-shaped profile container */
+    /* Cloud Profile */
     .profile-container {
       width: 350px;
       padding: 30px;
@@ -51,22 +38,6 @@
       object-fit: cover;
       border: 3px solid #ff9aa2;
       margin-bottom: 15px;
-    }
-
-    .profile-container h1 {
-      font-size: 24px;
-      margin: 10px 0;
-      color: #333;
-    }
-
-    .profile-container p {
-      font-size: 16px;
-      color: #666;
-      line-height: 1.5;
-    }
-
-    .social-links {
-      margin-top: 20px;
     }
 
     .social-links a {
@@ -99,13 +70,6 @@
 </head>
 <body>
 
-  <!-- Background Video -->
-  <video autoplay loop muted playsinline>
-  <source src="back.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
-
   <!-- SVG Cloud Shape -->
   <svg width="0" height="0">
     <defs>
@@ -126,19 +90,15 @@
   <div class="profile-container">
     <img src="profile.png" alt="Profile Image">
     <h1>Your Name</h1>
-    <p>
-      Hello! I'm a junior high school student.<br>
-      I believe in simple design and a cute style.
-    </p>
+    <p>Hello! I'm a developer.</p>
     <div class="social-links">
-      <a href="https://github.com/aiueodayon" target="_blank">GitHub</a>
-      <a href="https://twitter.com/" target="_blank">Twitter</a>
+      <a href="https://github.com/yourusername" target="_blank">GitHub</a>    /* Githubリンクとか */
+      <a href="https://twitter.com/yourusername" target="_blank">Twitter</a>
     </div>
   </div>
 
-
   <!-- FPS Counter -->
-  <div class="fps-counter" id="fpsCounter">FPS: -- | Version: 30.0</div>
+  <div class="fps-counter" id="fpsCounter">FPS: -- | Version: 1.0</div>
 
   <script>
     let lastFrameTime = performance.now();
@@ -153,7 +113,7 @@
         fps = frameCount;
         frameCount = 0;
         lastFrameTime = now;
-        document.getElementById("fpsCounter").innerText = `FPS: ${fps} | Version: 30.0`;
+        document.getElementById("fpsCounter").innerText = `FPS: ${fps} | Version: 1.0`;
       }
       requestAnimationFrame(updateFPS);
     }
