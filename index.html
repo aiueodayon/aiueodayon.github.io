@@ -14,39 +14,81 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      position: relative;
-      background-color: #ffebcd; /* 背景色 */
+      background-color: #ffebcd; 
     }
 
-    /* Cloud Profile */
-    .profile-container {
-      width: 350px;
-      padding: 30px;
-      text-align: center;
-      background: white;
-      position: relative;
-      z-index: 2;
-      clip-path: url(#cloud-shape);
-      -webkit-clip-path: url(#cloud-shape);
+    /* MacOS-style window */
+    .mac-window {
+      width: 380px;
+      background: #fff;
+      border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
     }
 
-    .profile-container img {
-      width: 120px;
-      height: 120px;
+    /* Window Header */
+    .window-header {
+      background: #e8e8e8;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      border-bottom: 1px solid #ccc;
+    }
+
+    /* MacOS Close, Minimize, Maximize buttons */
+    .window-buttons {
+      display: flex;
+      gap: 8px;
+      margin-left: 10px;
+    }
+
+    .window-buttons span {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .close { background: #ff5f57; }    /* Red */
+    .minimize { background: #ffbd2e; } /* Yellow */
+    .maximize { background: #28c840; } /* Green */
+
+    /* Profile content */
+    .profile-content {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .profile-content img {
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       object-fit: cover;
       border: 3px solid #ff9aa2;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
 
+    .profile-content h1 {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+
+    .profile-content p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* Social Links */
     .social-links a {
       text-decoration: none;
       color: #fff;
       background-color: #ff9aa2;
-      padding: 10px 15px;
+      padding: 8px 12px;
       border-radius: 5px;
-      margin: 0 5px;
+      margin: 5px;
+      font-size: 14px;
+      display: inline-block;
       transition: background-color 0.3s;
     }
 
@@ -64,41 +106,38 @@
       font-size: 14px;
       padding: 5px 10px;
       border-radius: 5px;
-      z-index: 3;
     }
   </style>
 </head>
 <body>
 
-  <!-- SVG Cloud Shape -->
-  <svg width="0" height="0">
-    <defs>
-      <clipPath id="cloud-shape" clipPathUnits="objectBoundingBox">
-        <path d="M0.35,0.05 C0.2,0, 0.05,0.2, 0.05,0.4 
-                 C0.05,0.55, 0.2,0.6, 0.2,0.7 
-                 C0.1,0.9, 0.2,1, 0.35,0.95 
-                 C0.4,1, 0.6,1, 0.65,0.95 
-                 C0.8,1, 0.9,0.9, 0.8,0.7 
-                 C0.9,0.6, 0.95,0.55, 0.95,0.4 
-                 C0.95,0.2, 0.8,0, 0.65,0.05 
-                 C0.6,-0.02, 0.4,-0.02, 0.35,0.05 Z" />
-      </clipPath>
-    </defs>
-  </svg>
-
-  <!-- Profile Container -->
-  <div class="profile-container">
-    <img src="profile.png" alt="Profile Image">
-    <h1>Your Name</h1>
-    <p>Hello! I'm a developer.</p>
-    <div class="social-links">
-      <a href="https://github.com/yourusername" target="_blank">GitHub</a>    /* Githubリンクとか */
-      <a href="https://twitter.com/yourusername" target="_blank">Twitter</a>
+  <!-- MacOS X Window -->
+  <div class="mac-window">
+    
+    <!-- Window Header with Mac Buttons -->
+    <div class="window-header">
+      <div class="window-buttons">
+        <span class="close"></span>
+        <span class="minimize"></span>
+        <span class="maximize"></span>
+      </div>
     </div>
+
+    <!-- Profile Content -->
+    <div class="profile-content">
+      <img src="profile.png" alt="Profile Image">
+      <h1>Your Name</h1>
+      <p>Hello! I'm a developer!</p>
+      <div class="social-links">
+        <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+        <a href="https://twitter.com/yourusername" target="_blank">Twitter</a>
+      </div>
+    </div>
+
   </div>
 
   <!-- FPS Counter -->
-  <div class="fps-counter" id="fpsCounter">FPS: -- | Version: 1.0</div>
+  <div class="fps-counter" id="fpsCounter">FPS: -- | Version: 35.0</div>
 
   <script>
     let lastFrameTime = performance.now();
@@ -113,7 +152,7 @@
         fps = frameCount;
         frameCount = 0;
         lastFrameTime = now;
-        document.getElementById("fpsCounter").innerText = `FPS: ${fps} | Version: 1.0`;
+        document.getElementById("fpsCounter").innerText = `FPS: ${fps} | Version: 35.0`;
       }
       requestAnimationFrame(updateFPS);
     }
