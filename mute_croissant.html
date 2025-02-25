@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VRChat ギミック 説明書</title>
+  <style>
+    /* ベースリセット */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      line-height: 1.8;
+      background-color: #f9f9f9;
+      color: #444;
+      display: flex;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 40px;
+    }
+    /* サイドバー */
+    .sidebar {
+      width: 250px;
+      background: #ffffff;
+      padding: 40px 20px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      top: 40px;
+      left: 40px;
+      height: calc(100vh - 80px);
+    }
+    .sidebar h2 {
+      font-size: 1.6rem;
+      margin-bottom: 30px;
+      color: #333;
+      font-weight: 600;
+    }
+    .sidebar ul {
+      list-style: none;
+    }
+    .sidebar ul li {
+      margin-bottom: 20px;
+    }
+    .sidebar ul li a {
+      text-decoration: none;
+      color: #555;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      font-size: 1.1rem;
+    }
+    .sidebar ul li a:hover {
+      color: #007BFF;
+    }
+    .sidebar ul li ul {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+    /* コンテンツ */
+    .content {
+      flex: 1;
+      padding: 50px 30px;
+      max-width: 1000px;
+      margin-left: 300px;
+      background-color: #fff;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      margin-top: 40px;
+      overflow: hidden;
+    }
+    header {
+      background: #f5f5f5;
+      padding: 30px 20px;
+      text-align: center;
+      border-radius: 10px;
+      margin-bottom: 40px;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      color: #333;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #777;
+    }
+    .section {
+      margin-bottom: 50px;
+    }
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #007BFF;
+      font-weight: 600;
+      border-bottom: 3px solid #007BFF;
+      padding-bottom: 10px;
+    }
+    .section h3 {
+      font-size: 1.4rem;
+      margin: 30px 0 15px;
+      color: #333;
+      border-left: 4px solid #007BFF;
+      padding-left: 15px;
+      font-weight: 500;
+    }
+    .section p,
+    .section li {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .section ul {
+      list-style: disc inside;
+      margin-left: 30px;
+    }
+    .section ol {
+      margin-left: 30px;
+    }
+    .video-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+    .video-container h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #007BFF;
+    }
+    .video-container p {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 30px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 1rem;
+      color: #999;
+      border-top: 1px solid #ddd;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <!-- サイドバー -->
+  <nav class="sidebar">
+    <h2>目次</h2>
+    <ul>
+      <li><a href="#overview">ギミック概要</a></li>
+      <li><a href="#contents">内容物</a></li>
+      <li><a href="#setup">セットアップ方法</a>
+        <ul>
+          <li><a href="#unity">Unityの設定</a></li>
+          <li><a href="#vrchat">VRChatでの動作</a></li>
+        </ul>
+      </li>
+      <li><a href="#usage">使い方</a></li>
+      <li><a href="#troubleshoot">トラブルシューティング</a></li>
+      <li><a href="#contact">お問い合わせ</a></li>
+    </ul>
+  </nav>
+
+  <!-- コンテンツ -->
+  <div class="content">
+    <header>
+      <h1>VRChat ギミック 説明書</h1>
+      <p>ミュート状態でクロワッサンをくわえるギミック</p>
+    </header>
+
+    <section id="overview" class="section">
+      <h2>ギミック概要</h2>
+      <p>
+        このギミックは、VRChatでアバターがミュート（マイクオフ）になると、クロワッサンをくわえるアニメーションが自動的に再生されるものです。
+      </p>
+    </section>
+
+    <section id="contents" class="section">
+      <h2>内容物</h2>
+      <ul>
+        <li>アニメーションファイル</li>
+        <li>クロワッサンの3Dモデル</li>
+        <li>MA設定済みプレハブ</li>
+      </ul>
+    </section>
+
+    <section id="setup" class="section">
+      <h2>セットアップ方法</h2>
+
+      <h3 id="unity">Unityでの設定</h3>
+      <p>
+        Unityでの設定方法を以下の手順で行います。
+      </p>
+      <ol>
+        <li>「mute.prefab」をアバターの直下に配置します。</li>
+        <li>GestureManagerでミュート状態をエミュレートし、位置を調整します。</li>
+        <li>クロワッサンの位置がずれないように調整します。</li>
+      </ol>
+
+      <h3 id="vrchat">VRChatでの動作</h3>
+      <p>
+        VRChatにアバターをアップロード後、ミュート状態にするとクロワッサンをくわえる動作が確認できます。
+      </p>
+    </section>
+
+    <section id="usage" class="section">
+      <h2>使い方</h2>
+      <p>
+        VRChat内で以下の操作を行うことでギミックが動作します。
+      </p>
+      <ul>
+        <li>アバターをミュート状態にする</li>
+      </ul>
+    </section>
+
+    <section id="troubleshoot" class="section">
+      <h2>トラブルシューティング</h2>
+      <p>問題が発生した場合、以下の対処法をお試しください。</p>
+      <h3>クロワッサンが表示されない</h3>
+      <p>『Liltoon』が正しく導入されているか、位置の調整が必要か確認してください。</p>
+      <h3>ミュート解除後もクロワッサンが表示される</h3>
+      <p>『Modular Avatar』の設定を確認し、クロワッサンがMuteオブジェクト内にあるか確認してください。</p>
+    </section>
+
+    <section id="contact" class="section">
+      <h2>お問い合わせ</h2>
+      <p>
+        ギミックに関するお問い合わせは、以下のメールアドレスまでご連絡ください。
+      </p>
+      <p>
+        メール：info@astraldao.shop
+      </p>
+    </section>
+
+    <section class="video-container">
+      <h2>デモ動画</h2>
+      <p>実際の動作を動画でご確認ください。</p>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/XXXXXXXXXXX" frameborder="0" allowfullscreen></iframe>
+    </section>
+  </div>
+
+  <footer>
+    &copy; 2025 AstralShopDeveloperTeam. All rights reserved.
+  </footer>
+</body>
+</html>
