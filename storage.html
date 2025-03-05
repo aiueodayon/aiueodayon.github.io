@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>かわいいクラウドストレージ - ドラッグ＆ドロップで戻るフォルダ</title>
+  <!-- JSZipライブラリ（Zipダウンロード用） -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+  <style>
+    /* 基本スタイル */
+    body {
+      background-color: #f9f0ff;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 90%;
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      text-align: center;
+    }
+    .header {
+      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      color: white;
+    }
+    .breadcrumb {
+      margin: 15px 0;
+      font-weight: bold;
+      text-align: left;
+    }
+    .btn-group {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      background-color: #ff9a9e;
+      border: none;
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #ff7b90;
+    }
+    .file-list {
+      text-align: left;
+      list-style: none;
+      padding: 0;
+    }
+    .file-list li {
+      background: #fff;
+      border: 1px solid #ff9a9e;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background-color 0.3s;
+    }
+    /* ドラッグ中のハイライト */
+    .file-list li.drag-over {
+      background-color: #d1ffd1;
+    }
+    /* 「戻るフォルダ」エントリ */
+    .back-folder {
+      font-weight: bold;
+      color: #555;
+      cursor: pointer;
+      background-color: #e0e0e0;
+      border: 1px dashed #aaa;
+    }
+    .item-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      flex-grow: 1;
+    }
+    .icon {
+      font-size: 24px;
+    }
+    /* チェックボックス（複数選択用） */
+    .select-checkbox {
+      margin-right: 10px;
+    }
+    /* アクションボタン */
+    .action-btn {
+      background-color: #ff9a9e;
+      border: none;
+      color: white;
+      padding: 5px 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.8em;
+      margin-left: 5px;
+    }
+    .action-btn:hover {
+      background-color: #ff7b90;
+    }
+    .delete-btn {
+      background-color: #e74c3c;
+    }
+    /* 非表示のファイル入力 */
+    #fileInput {
+      display: none;
+    }
+    /* モーダル用スタイル */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      position: relative;
+      text-align: left;
+    }
+    .close {
+      color: #aaa;
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+    }
+    #previewContent img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+    #previewContent pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .modal input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+      box-sizing: border-box;
+    }
+    .modal .save-btn {
+      background-color: #ff9a9e;
+      border: none;
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    .modal .save-btn:hover {
+      background-color: #ff7b90;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>かわいいクラウドストレージ</h1>
+    </div>
+    <!-- パンくずリスト -->
+    <div class="breadcrumb" id="breadcrumb">パス: /root</div>
+    <!-- 操作用ボタン群 -->
+    <div class="btn-group">
+      <button class="btn" onclick="document.getElementById('fileInput').click();">ファイルアップロード</button>
+      <button class="btn" onclick="createFolder()">フォルダ作成</button>
+      <button class="btn" onclick="groupZipDownload()">Zipダウンロード</button>
+    </div>
+    <!-- ファイル・フォルダ一覧 -->
+    <ul class="file-list" id="fileList"></ul>
+    <!-- 非表示のファイル入力 -->
+    <input type="file" id="fileInput" multiple>
+  </div>
+
+  <!-- プレビュー用モーダル -->
+  <div id="previewModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('previewModal')">&times;</span>
+      <div id="previewContent"></div>
+    </div>
+  </div>
+
+  <!-- 編集（名前変更）用モーダル -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('editModal')">&times;</span>
+      <h2>名前変更</h2>
+      <form id="editForm">
+        <input type="text" id="editName" required>
+        <button type="submit" class="save-btn">保存</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // ファイルシステム（ツリー構造）の定義
+    const fileSystem = {
+      type: 'folder',
+      name: 'root',
+      children: [],
+      parent: null
+    };
+    let currentFolder = fileSystem;
+    let currentEditItem = null;  // 編集対象
+    // 複数ドラッグ用（チェックされた項目のインデックス群を保持）
+    let dragGroupIndices = null;
+
+    // ファイルアップロード処理
+    document.getElementById('fileInput').addEventListener('change', function() {
+      const files = Array.from(this.files);
+      files.forEach(file => {
+        currentFolder.children.push({
+          type: 'file',
+          name: file.name,
+          file: file,
+          parent: currentFolder
+        });
+      });
+      updateFileList();
+      this.value = ''; // 入力リセット
+    });
+
+    // 一覧更新（「戻るフォルダ」エントリ、チェックボックス・ドラッグ＆ドロップ対応）
+    function updateFileList() {
+      const fileList = document.getElementById('fileList');
+      fileList.innerHTML = '';
+
+      // 「戻るフォルダ」エントリ（現在のフォルダがrootでなければ表示）
+      if (currentFolder.parent) {
+        const backLi = document.createElement('li');
+        backLi.classList.add('back-folder');
+        backLi.innerHTML = '<span class="icon">⬆️</span> <span>戻るフォルダ</span>';
+        // クリックで戻る
+        backLi.addEventListener('click', function() {
+          currentFolder = currentFolder.parent;
+          updateBreadcrumb();
+          updateFileList();
+        });
+        // ドラッグイベントを追加：ここにドロップすると親フォルダへ移動
+        backLi.addEventListener('dragover', function(e) {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = "move";
+          backLi.classList.add("drag-over");
+        });
+        backLi.addEventListener('dragleave', function(e) {
+          backLi.classList.remove("drag-over");
+        });
+        backLi.addEventListener('drop', function(e) {
+          e.preventDefault();
+          backLi.classList.remove("drag-over");
+          handleDropBackFolder();
+        });
+        fileList.appendChild(backLi);
+      }
+
+      currentFolder.children.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.draggable = true;
+        li.dataset.index = index; // 現在のフォルダ内での位置
+
+        // チェックボックス（複数選択用）
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.classList.add('select-checkbox');
+        li.appendChild(checkbox);
+
+        // ドラッグ開始：グループ移動の対象を決定
+        li.addEventListener('dragstart', function(e) {
+          if (!checkbox.checked) {
+            document.querySelectorAll('.select-checkbox').forEach(cb => cb.checked = false);
+            checkbox.checked = true;
+          }
+          dragGroupIndices = [];
+          document.querySelectorAll('.file-list li').forEach(liItem => {
+            if (liItem.dataset.index !== undefined) {
+              const cb = liItem.querySelector('.select-checkbox');
+              if (cb && cb.checked) {
+                dragGroupIndices.push(parseInt(liItem.dataset.index, 10));
+              }
+            }
+          });
+          e.dataTransfer.setData("text/plain", "group"); 
+          e.dataTransfer.effectAllowed = "move";
+        });
+
+        // ドロップ先（フォルダ）のみdropイベントを設定
+        if (item.type === 'folder') {
+          li.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = "move";
+            li.classList.add("drag-over");
+          });
+          li.addEventListener('dragleave', function(e) {
+            li.classList.remove("drag-over");
+          });
+          li.addEventListener('drop', function(e) {
+            e.preventDefault();
+            li.classList.remove("drag-over");
+            const targetFolder = item;
+            if (dragGroupIndices && dragGroupIndices.length > 0) {
+              for (let idx of dragGroupIndices) {
+                const draggedItem = currentFolder.children[idx];
+                if (draggedItem === targetFolder || (draggedItem.type === 'folder' && isDescendant(draggedItem, targetFolder))) {
+                  alert("無効な移動です。");
+                  dragGroupIndices = null;
+                  return;
+                }
+              }
+              dragGroupIndices.sort((a, b) => b - a);
+              dragGroupIndices.forEach(idx => {
+                const movedItem = currentFolder.children[idx];
+                currentFolder.children.splice(idx, 1);
+                movedItem.parent = targetFolder;
+                if (!targetFolder.children) {
+                  targetFolder.children = [];
+                }
+                targetFolder.children.push(movedItem);
+              });
+              dragGroupIndices = null;
+              document.querySelectorAll('.select-checkbox').forEach(cb => cb.checked = false);
+              updateFileList();
+              updateBreadcrumb();
+            }
+          });
+        }
+
+        // アイコンと名前の表示
+        const infoDiv = document.createElement('div');
+        infoDiv.classList.add('item-info');
+        const iconSpan = document.createElement('span');
+        iconSpan.classList.add('icon');
+        if (item.type === 'folder') {
+          iconSpan.textContent = (item.children && item.children.length > 0) ? "📂" : "📁";
+        } else {
+          iconSpan.textContent = "📄";
+        }
+        infoDiv.appendChild(iconSpan);
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = item.name;
+        infoDiv.appendChild(nameSpan);
+
+        // クリック時：フォルダなら移動、ファイルならプレビュー
+        infoDiv.addEventListener('click', function(e) {
+          checkbox.checked = !checkbox.checked;
+          if (item.type === 'folder') {
+            currentFolder = item;
+            updateBreadcrumb();
+            updateFileList();
+          } else if (item.type === 'file') {
+            openPreview(item);
+          }
+        });
+        li.appendChild(infoDiv);
+
+        // アクションボタン群（名前変更／削除）
+        const actionDiv = document.createElement('div');
+        const editBtn = document.createElement('button');
+        editBtn.textContent = "編集";
+        editBtn.classList.add('action-btn');
+        editBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          openEditModal(item);
+        });
+        actionDiv.appendChild(editBtn);
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = "削除";
+        deleteBtn.classList.add('action-btn', 'delete-btn');
+        deleteBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (confirm(`「${item.name}」を削除しますか？`)) {
+            currentFolder.children.splice(index, 1);
+            updateFileList();
+          }
+        });
+        actionDiv.appendChild(deleteBtn);
+        li.appendChild(actionDiv);
+
+        fileList.appendChild(li);
+      });
+    }
+
+    // ハンドル：戻るフォルダへのドロップ処理
+    function handleDropBackFolder() {
+      if (!dragGroupIndices || dragGroupIndices.length === 0) return;
+      if (!currentFolder.parent) {
+        alert("親フォルダがありません。");
+        return;
+      }
+      dragGroupIndices.sort((a, b) => b - a);
+      dragGroupIndices.forEach(idx => {
+        const movedItem = currentFolder.children[idx];
+        currentFolder.children.splice(idx, 1);
+        movedItem.parent = currentFolder.parent;
+        currentFolder.parent.children.push(movedItem);
+      });
+      dragGroupIndices = null;
+      document.querySelectorAll('.select-checkbox').forEach(cb => cb.checked = false);
+      updateFileList();
+      updateBreadcrumb();
+    }
+
+    // パンくずリスト更新
+    function updateBreadcrumb() {
+      let path = [];
+      let folder = currentFolder;
+      while (folder) {
+        path.unshift(folder.name);
+        folder = folder.parent;
+      }
+      document.getElementById('breadcrumb').textContent = "パス: /" + path.join('/');
+    }
+
+    // フォルダ作成
+    function createFolder() {
+      const folderName = prompt("作成するフォルダの名前を入力してください", "新しいフォルダ");
+      if (folderName && folderName.trim() !== "") {
+        currentFolder.children.push({
+          type: 'folder',
+          name: folderName.trim(),
+          children: [],
+          parent: currentFolder
+        });
+        updateFileList();
+      }
+    }
+
+    // Zipダウンロード：選択されたファイルをまとめてZIP化（フォルダは対象外）
+    function groupZipDownload() {
+      const checkboxes = document.querySelectorAll('.select-checkbox');
+      let selectedFiles = [];
+      checkboxes.forEach((cb, i) => {
+        if (cb.checked) {
+          const item = currentFolder.children[i];
+          if (item && item.type === 'file') {
+            selectedFiles.push(item);
+          }
+        }
+      });
+      if (selectedFiles.length === 0) {
+        alert("Zipに含めるファイルを選択してください。（フォルダは対象外です）");
+        return;
+      }
+      const zip = new JSZip();
+      const filePromises = selectedFiles.map(item => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            zip.file(item.name, e.target.result);
+            resolve();
+          };
+          reader.onerror = function(e) {
+            reject(e);
+          };
+          reader.readAsArrayBuffer(item.file);
+        });
+      });
+      Promise.all(filePromises).then(() => {
+        zip.generateAsync({type:"blob"}).then(function(content) {
+          const url = URL.createObjectURL(content);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "download.zip";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+      }).catch(err => {
+        alert("ファイルの読み込みに失敗しました。");
+      });
+    }
+
+    // ファイルプレビュー（画像／テキストの場合）
+    function openPreview(item) {
+      const previewContent = document.getElementById('previewContent');
+      previewContent.innerHTML = "";
+      if (item.file) {
+        if (item.file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            previewContent.appendChild(img);
+          };
+          reader.readAsDataURL(item.file);
+        } else if (item.file.type.startsWith('text/')) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const pre = document.createElement('pre');
+            pre.textContent = e.target.result;
+            previewContent.appendChild(pre);
+          };
+          reader.readAsText(item.file);
+        } else {
+          const p = document.createElement('p');
+          p.textContent = "このファイルのプレビューはサポートされていません。";
+          previewContent.appendChild(p);
+        }
+        document.getElementById('previewModal').style.display = "block";
+      }
+    }
+
+    // 編集モーダル（名前変更）を開く
+    function openEditModal(item) {
+      currentEditItem = item;
+      document.getElementById('editName').value = item.name;
+      document.getElementById('editModal').style.display = "block";
+    }
+
+    // 編集モーダルの送信処理
+    document.getElementById('editForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (currentEditItem) {
+        currentEditItem.name = document.getElementById('editName').value.trim();
+        updateFileList();
+        closeModal('editModal');
+      }
+    });
+
+    // モーダルを閉じる
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = "none";
+    }
+
+    // ドラッグドロップ移動時のチェック： draggedFolder が targetFolder の先祖なら移動不可
+    function isDescendant(draggedFolder, targetFolder) {
+      let current = targetFolder;
+      while (current) {
+        if (current === draggedFolder) return true;
+        current = current.parent;
+      }
+      return false;
+    }
+
+    // モーダル外クリックで閉じる
+    window.onclick = function(event) {
+      const previewModal = document.getElementById('previewModal');
+      const editModal = document.getElementById('editModal');
+      if (event.target === previewModal) {
+        closeModal('previewModal');
+      }
+      if (event.target === editModal) {
+        closeModal('editModal');
+      }
+    };
+
+    // 初回表示
+    updateFileList();
+    (function updateBreadcrumb() {
+      let path = [];
+      let folder = currentFolder;
+      while (folder) {
+        path.unshift(folder.name);
+        folder = folder.parent;
+      }
+      document.getElementById('breadcrumb').textContent = "パス: /" + path.join('/');
+    })();
+  </script>
+</body>
+</html>
