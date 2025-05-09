@@ -9,16 +9,22 @@
 <body>
   <div id="app">
     <h1>恋バナチャット</h1>
+
     <div id="login">
       <input id="nickname" type="text" placeholder="ニックネーム" />
       <button id="joinBtn">参加</button>
     </div>
-    <!-- エラーメッセージ表示用 -->
+
+    <!-- エラー＆警告 -->
     <div id="error" class="error hidden"></div>
+
+    <!-- チャット本体 -->
     <div id="chat" class="hidden">
       <div id="messages"></div>
-      <input id="messageInput" type="text" placeholder="メッセージを入力..." />
-      <button id="sendBtn">送信</button>
+      <div id="inputArea">
+        <input id="messageInput" type="text" placeholder="メッセージを入力..." />
+        <button id="sendBtn">送信</button>
+      </div>
     </div>
   </div>
 
