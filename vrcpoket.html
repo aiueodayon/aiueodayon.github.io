@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VRCPoket - VRChatの新しい体験</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.47059; /* Apple's typical line-height */
+            font-weight: 400;
+            letter-spacing: -0.022em; /* Apple's typical letter-spacing */
+            color: #1d1d1f; /* Dark Gray */
+            background-color: #ffffff; /* White background */
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.72); /* Slightly transparent white */
+            backdrop-filter: saturate(180%) blur(20px); /* Frosted glass effect */
+            z-index: 1000;
+            border-bottom: none; /* Remove border */
+            box-shadow: none; /* Remove initial shadow */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for scroll effect */
+        }
+        
+        /* Nav scrolled state */
+        .nav-container.scrolled {
+            background-color: rgba(255, 255, 255, 0.9); /* More opaque when scrolled */
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08); /* Subtle bottom shadow */
+        }
+
+        .nav-content {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 44px;
+        }
+        
+        .nav-logo {
+            font-size: 21px;
+            font-weight: 600;
+            color: #1d1d1f;
+            text-decoration: none;
+            letter-spacing: -0.022em;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 32px;
+        }
+        
+        .nav-links a {
+            color: #1d1d1f;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #0071e3; /* Apple Blue */
+        }
+        
+        .nav-cta {
+            font-size: 12px;
+            color: #0071e3; /* Apple Blue */
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-cta:hover {
+            color: #0077ed;
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background-color: #ffffff;
+            height: 300vh; /* スクロールアニメーションのために十分な高さを確保 */
+        }
+
+        .hero-video-container {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: grayscale(100%) brightness(1.2); /* 白黒テーマに合わせる */
+        }
+
+        .hero-video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3); /* 白い半透明のオーバーレイ */
+            z-index: 2;
+        }
+        
+        .hero-content-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 692px;
+            padding: 0 40px;
+            color: #1d1d1f;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+            pointer-events: auto;
+        }
+
+        /* Hero Content Elements for individual animation */
+        .hero-content > * {
+            opacity: 0;
+            transform: translateY(50px) scale(0.95); /* Initial state for animation */
+            transition: none; /* Controlled by JS */
+        }
+        
+        .hero-eyebrow {
+            font-size: 17px;
+            font-weight: 600;
+            color: #bf4800; /* Apple's orange for "New" or "Coming Soon" */
+            margin-bottom: 4px;
+            letter-spacing: -0.022em;
+        }
+        
+        .hero-title {
+            font-size: 56px;
+            font-weight: 700; /* Bold */
+            line-height: 1.07143;
+            letter-spacing: -0.005em;
+            margin-bottom: 6px;
+            color: #1d1d1f;
+        }
+        
+        .hero-subtitle {
+            font-size: 27px;
+            font-weight: 500; /* Medium */
+            line-height: 1.11111;
+            letter-spacing: 0.007em;
+            margin-bottom: 19px;
+            color: #1d1d1f;
+        }
+        
+        .hero-pricing {
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.23536;
+            letter-spacing: -0.022em;
+            margin-bottom: 24px;
+            color: #86868b; /* Light Gray */
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        
+        .btn {
+            padding: 12px 23px;
+            border-radius: 980px; /* Pill shape */
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.23536;
+            letter-spacing: -0.022em;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            min-width: 44px;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: #0071e3; /* Apple Blue */
+            color: #ffffff;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0077ed;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: #0071e3; /* Apple Blue */
+            border: 1px solid #0071e3;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #0071e3;
+            color: #ffffff;
+        }
+        
+        .hero-availability {
+            font-size: 12px;
+            color: #86868b;
+            line-height: 1.33337;
+            letter-spacing: -0.01em;
+        }
+        
+        /* Product Image */
+        .product-image {
+            padding: 100px 0; /* Increased padding */
+            background-color: #f5f5f7; /* Light gray background */
+        }
+        
+        .product-container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 22px;
+            text-align: center;
+        }
+        
+        .product-mockup {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* Subtle, diffused shadow */
+        }
+        
+        .phone-mockup {
+            width: 200px;
+            height: 350px;
+            background-color: #1d1d1f; /* Dark phone body */
+            border-radius: 30px;
+            padding: 8px;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3); /* Inner shadow for depth */
+        }
+        
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background-color: #000000; /* Black screen */
+            border-radius: 22px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .phone-screen .app-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0071e3; /* Apple Blue */
+            margin-bottom: 10px;
+        }
+        .phone-screen .app-info {
+            font-size: 14px;
+            color: #a1a1a6;
+            margin-bottom: 5px;
+        }
+        .phone-screen .app-cta {
+            position: absolute;
+            bottom: 20px;
+            font-size: 12px;
+            color: #86868b;
+        }
+        
+        /* Features Section */
+        .features-section {
+            padding: 120px 0; /* More padding */
+            background-color: #ffffff;
+        }
+        
+        .features-container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 100px; /* More margin */
+        }
+        
+        .section-eyebrow {
+            font-size: 17px;
+            font-weight: 600;
+            color: #bf4800;
+            margin-bottom: 8px;
+            letter-spacing: -0.022em;
+        }
+        
+        .section-title {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.08333;
+            letter-spacing: -0.003em;
+            margin-bottom: 16px;
+            color: #1d1d1f;
+        }
+        
+        .section-description {
+            font-size: 21px;
+            font-weight: 400;
+            line-height: 1.381;
+            letter-spacing: 0.011em;
+            color: #86868b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px; /* Increased gap */
+        }
+        
+        .feature-card {
+            background-color: #f5f5f7; /* Light gray background for cards */
+            text-align: left;
+            padding: 40px; /* Increased padding */
+            border-radius: 12px;
+            box-shadow: none; /* No border, no strong shadow */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .feature-card .icon-placeholder {
+            width: 56px; /* Larger icon */
+            height: 56px;
+            background-color: #0071e3; /* Apple Blue */
+            border-radius: 50%;
+            margin-bottom: 25px; /* Increased margin */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px; /* Larger icon font */
+            color: #ffffff;
+            font-weight: 600;
+        }
+        
+        .feature-title {
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 1.16667;
+            letter-spacing: 0.009em;
+            margin-bottom: 15px; /* Increased margin */
+            color: #1d1d1f;
+        }
+        
+        .feature-description {
+            font-size: 17px;
+            line-height: 1.6;
+            letter-spacing: -0.016em;
+            color: #86868b;
+        }
+        
+        /* Showcase Section */
+        .showcase {
+            background-color: #ffffff;
+            padding: 120px 0; /* More padding */
+        }
+        
+        .showcase-container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 22px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px; /* Increased gap */
+            align-items: center;
+        }
+        
+        .showcase-title {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: 0em;
+            margin-bottom: 25px; /* Increased margin */
+            color: #1d1d1f;
+        }
+        
+        .showcase-description {
+            font-size: 21px;
+            line-height: 1.5;
+            letter-spacing: 0.012em;
+            color: #86868b;
+            margin-bottom: 40px; /* Increased margin */
+        }
+        
+        .showcase-features {
+            list-style: none;
+            margin-bottom: 50px; /* Increased margin */
+        }
+        
+        .showcase-features li {
+            padding: 12px 0; /* Increased padding */
+            font-size: 17px;
+            color: #1d1d1f;
+            position: relative;
+            padding-left: 30px; /* Space for checkmark */
+            line-height: 1.6;
+        }
+        
+        .showcase-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #0071e3; /* Apple Blue */
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .showcase-visual {
+            width: 100%;
+            height: 500px; /* Increased height */
+            background-color: #e8e8ed; /* Light gray background */
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+            overflow: hidden;
+        }
+        
+        .showcase-placeholder {
+            font-size: 18px;
+            color: #666666;
+            text-align: center;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        
+        /* Status Section */
+        .status-section {
+            background-color: #1d1d1f; /* Dark background */
+            padding: 120px 0; /* More padding */
+            color: #ffffff;
+        }
+        
+        .status-container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 22px;
+            text-align: center;
+        }
+        
+        .status-title {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 25px; /* Increased margin */
+            color: #ffffff;
+        }
+        
+        .status-description {
+            font-size: 21px;
+            line-height: 1.5;
+            color: #a1a1a6; /* Lighter gray */
+            margin-bottom: 70px; /* Increased margin */
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px; /* Increased gap */
+            margin-bottom: 60px; /* Increased margin */
+        }
+        
+        .status-item {
+            background-color: rgba(255, 255, 255, 0.05); /* Very subtle background */
+            border-radius: 12px;
+            padding: 35px; /* Increased padding */
+            text-align: left;
+            border: none; /* No border */
+            box-shadow: none; /* No strong shadow */
+            transition: transform 0.3s ease, background-color 0.3s ease; /* Hover effect */
+        }
+
+        .status-item:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.08); /* Slightly darker on hover */
+        }
+        
+        .status-item-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px; /* Increased margin */
+            color: #ffffff;
+        }
+        
+        .status-item-description {
+            font-size: 15px;
+            color: #a1a1a6;
+            line-height: 1.5;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 120px 0; /* More padding */
+            background-color: #ffffff;
+        }
+        
+        .about-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 22px;
+            text-align: center;
+        }
+        
+        .about-title {
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.125;
+            letter-spacing: 0.004em;
+            margin-bottom: 25px; /* Increased margin */
+            color: #1d1d1f;
+        }
+        
+        .about-description {
+            font-size: 21px;
+            line-height: 1.5;
+            color: #86868b;
+            margin-bottom: 60px; /* Increased margin */
+        }
+        
+        .creator-info {
+            background-color: #f5f5f7;
+            border-radius: 12px;
+            padding: 60px; /* Increased padding */
+            border: none; /* No border */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+            text-align: left;
+        }
+        
+        .creator-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px; /* Increased margin */
+            color: #1d1d1f;
+        }
+        
+        .creator-title {
+            font-size: 17px;
+            color: #86868b;
+            margin-bottom: 25px; /* Increased margin */
+        }
+        
+        .creator-description {
+            font-size: 17px;
+            line-height: 1.6;
+            color: #1d1d1f;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #f5f5f7;
+            padding: 60px 0; /* Increased padding */
+            border-top: none; /* No border */
+        }
+        
+        .footer-container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 22px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 50px; /* Increased gap */
+            margin-bottom: 30px; /* Increased margin */
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: #86868b;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: #0071e3;
+        }
+
+        .footer-bottom {
+            font-size: 13px;
+            color: #86868b;
+            line-height: 1.33337;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .showcase-container {
+                grid-template-columns: 1fr;
+                gap: 80px;
+            }
+
+            .hero-title {
+                font-size: 48px;
+            }
+            .hero-subtitle {
+                font-size: 24px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 38px;
+            }
+            
+            .hero-subtitle {
+                font-size: 22px;
+            }
+            
+            .section-title {
+                font-size: 38px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .showcase-title {
+                font-size: 34px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-title {
+                font-size: 24px;
+            }
+            .feature-description {
+                font-size: 16px;
+            }
+            .showcase-description {
+                font-size: 19px;
+            }
+            .status-title {
+                font-size: 38px;
+            }
+            .status-description {
+                font-size: 17px;
+            }
+            .about-title {
+                font-size: 34px;
+            }
+            .about-description {
+                font-size: 19px;
+            }
+            .product-image, .features-section, .showcase, .status-section, .about-section, .footer {
+                padding: 80px 0; /* Adjust padding for smaller screens */
+            }
+            .section-header {
+                margin-bottom: 60px;
+            }
+            .features-grid, .status-grid, .footer-links {
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-content {
+                padding: 0 20px;
+            }
+            
+            .features-container,
+            .about-container,
+            .footer-container {
+                padding: 0 12px;
+            }
+            
+            .creator-info {
+                padding: 30px 20px;
+            }
+            
+            .status-item {
+                padding: 20px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+            .hero-subtitle {
+                font-size: 18px;
+            }
+            .section-title {
+                font-size: 32px;
+            }
+            .showcase-title {
+                font-size: 30px;
+            }
+            .status-title {
+                font-size: 32px;
+            }
+            .about-title {
+                font-size: 30px;
+            }
+            .product-image, .features-section, .showcase, .status-section, .about-section, .footer {
+                padding: 60px 0; /* Further adjust padding */
+            }
+            .section-header {
+                margin-bottom: 40px;
+            }
+            .features-grid, .status-grid, .footer-links {
+                gap: 20px;
+            }
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* --- スクロールアニメーション用CSS --- */
+        /* アニメーションの基本設定 */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px); /* 下から少し浮き上がるように */
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth ease-out */
+        }
+
+        /* アニメーション後の状態 */
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 別の種類のアニメーション例 (左からスライドイン) */
+        .animate-slide-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animate-slide-left.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* 別の種類のアニメーション例 (フェードインのみ) */
+        .animate-fade-in {
+            opacity: 0;
+            transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animate-fade-in.is-visible {
+            opacity: 1;
+        }
+        /* --- スクロールアニメーション用CSS 終わり --- */
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <nav class="nav-content">
+            <a href="#" class="nav-logo">VRCPoket</a>
+            <ul class="nav-links">
+                <li><a href="#features">機能</a></li>
+                <li><a href="#showcase">詳細</a></li>
+                <li><a href="developer.html">開発者</a></li>
+                <li><a href="#contact">お問い合わせ</a></li>
+            </ul>
+            <a href="#contact" class="nav-cta">お問い合わせ</a>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-video-container">
+            <video autoplay loop muted playsinline class="hero-video">
+                <!-- ここにVRCPoketのコンセプトに合った動画のURLを配置してください -->
+                <source src="https://www.apple.com/105/media/us/apple-vision-pro/2024/6e1432b2-da6c-42b4-a0bc-e84205c7632c/anim/hero/large.mp4" type="video/mp4">
+                お使いのブラウザは動画タグをサポートしていません。
+            </video>
+            <div class="hero-video-overlay"></div>
+        </div>
+        <div class="hero-content-wrapper">
+            <div class="hero-content" id="heroContent">
+                <div class="hero-eyebrow hero-animated-element">空間コンピューティングの新たな扉</div>
+                <h1 class="hero-title hero-animated-element">VRCPoket</h1>
+                <p class="hero-subtitle hero-animated-element">VRChatを、あなたの指先で、かつてないほど自由に。</p>
+                <p class="hero-pricing hero-animated-element">VRモードでの煩雑な操作を解消し、没入感を深める革新的な体験。</p>
+                <div class="hero-buttons hero-animated-element">
+                    <a href="#status" class="btn btn-primary">開発状況を見る</a>
+                    <a href="#features" class="btn btn-secondary">詳細を見る</a>
+                </div>
+                <p class="hero-availability hero-animated-element">2025年リリース予定</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Image -->
+    <section class="product-image">
+        <div class="product-container">
+            <div class="product-mockup animate-on-scroll">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <p class="app-title">VRCPoket</p>
+                        <p class="app-info">フレンドオンライン: 5</p>
+                        <p class="app-info">新着メッセージ: 2</p>
+                        <p class="app-info">ワールド参加ログ</p>
+                        <div class="app-cta">
+                            <p>タップしてチャット入力</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="features-container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-eyebrow">機能</div>
+                <h2 class="section-title">VRChatの新しい体験を創造する</h2>
+                <p class="section-description">
+                    VRモードでの操作がこれまで以上に快適に。スマートフォンから直感的にVRChatをコントロールし、あなたのバーチャルライフを豊かにします。
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll">
+                    <div class="icon-placeholder">💬</div>
+                    <h3 class="feature-title">スマートフォンチャット</h3>
+                    <p class="feature-description">
+                        VRモードでのチャット入力をスマートフォンで。物理キーボードによる快適な文字入力が、コミュニケーションの壁を取り払います。
+                    </p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="icon-placeholder">🌐</div>
+                    <h3 class="feature-title">リアルタイム翻訳</h3>
+                    <p class="feature-description">
+                        チャットを即座に翻訳して送信。多言語対応により、世界中のユーザーとのシームレスなコミュニケーションを実現します。
+                    </p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="icon-placeholder">👥</div>
+                    <h3 class="feature-title">高度なユーザー管理</h3>
+                    <p class="feature-description">
+                        フレンドのメモ、ステータス、過去のjoinログをスマートフォンで確認。ユーザー情報を効率的に管理し、より深い繋がりを築きます。
+                    </p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="icon-placeholder">🎤</div>
+                    <h3 class="feature-title">音声文字起こし</h3>
+                    <p class="feature-description">
+                        VRChat内の会話をリアルタイムで文字起こし。重要な会話を記録として残し、後からいつでも振り返ることが可能です。
+                    </p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="icon-placeholder">📍</div>
+                    <h3 class="feature-title">Joinログ監視</h3>
+                    <p class="feature-description">
+                        ワールドへの参加状況をスマートフォンで確認。フレンドの動向を正確に把握し、合流のタイミングを逃しません。
+                    </p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="icon-placeholder">⚙️</div>
+                    <h3 class="feature-title">VR設定リモートコントロール</h3>
+                    <p class="feature-description">
+                        VRChat内の各種設定をスマートフォンから調整。ヘッドセットを外すことなく、音量やグラフィック設定を快適に操作できます。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase Section -->
+    <section class="showcase" id="showcase">
+        <div class="showcase-container">
+            <div class="showcase-content animate-slide-left">
+                <h2 class="showcase-title">VRの制限を超え、新たな自由を手に入れる。</h2>
+                <p class="showcase-description">
+                    VRモードでは困難だった操作を、スマートフォンの直感的なインターフェースで解決。VRCPoketが、あなたのVRChat体験を次のレベルへと引き上げます。
+                </p>
+                <ul class="showcase-features">
+                    <li>ヘッドセットを外すことなく、スムーズな文字入力。</li>
+                    <li>多言語翻訳で、世界中のユーザーとシームレスに交流。</li>
+                    <li>フレンドの活動状況をリアルタイムで把握し、効率的な管理。</li>
+                    <li>重要な会話を自動で記録、後から振り返りも簡単。</li>
+                    <li>ワールドへの参加状況を監視し、フレンドとの合流をサポート。</li>
+                    <li>VR設定をスマートフォンから遠隔調整、中断のない快適なプレイ。</li>
+                </ul>
+                <div class="hero-buttons animate-on-scroll">
+                    <a href="#status" class="btn btn-primary">開発進捗を見る</a>
+                </div>
+            </div>
+            <div class="showcase-visual animate-fade-in">
+                <div class="showcase-placeholder">
+                    <p style="font-size: 20px; font-weight: 600; color: #1d1d1f;">VRCPoket アプリ画面イメージ</p>
+                    <p style="font-size: 16px; color: #86868b; margin-top: 10px;">（チャット、フレンドリスト、設定画面など）</p>
+                    <p style="font-size: 14px; color: #a1a1a6; margin-top: 20px;">より詳細なデモは近日公開予定。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Status Section -->
+    <section class="status-section" id="status">
+        <div class="status-container">
+            <h2 class="status-title animate-on-scroll">開発中の機能とロードマップ</h2>
+            <p class="status-description animate-on-scroll">
+                VRCPoketは現在活発に開発が進められています。ユーザーの皆様からのフィードバックを元に、以下の機能を順次実装し、最高のVRChat体験を提供することを目指しています。
+            </p>
+            
+            <div class="status-grid">
+                <div class="status-item animate-on-scroll">
+                    <div class="status-item-title">基本UI/UXの確立</div>
+                    <div class="status-item-description">直感的で使いやすいスマートフォンアプリのインターフェース設計と実装を完了。</div>
+                </div>
+                <div class="status-item animate-on-scroll">
+                    <div class="status-item-title">VRChat連携チャット機能</div>
+                    <div class="status-item-description">VRChatとのAPI連携による、リアルタイムチャット送受信機能の実装。</div>
+                </div>
+                <div class="status-item animate-on-scroll">
+                    <div class="status-item-title">AIリアルタイム翻訳</div>
+                    <div class="status-item-description">入力したチャットの自動翻訳、および受信チャットの表示翻訳機能。</div>
+                </div>
+                <div class="status-item animate-on-scroll">
+                    <div class="status-item-title">高度なユーザー管理システム</div>
+                    <div class="status-item-description">フレンドのメモ、ステータス、過去のjoinログなどを詳細に管理。</div>
+                </div>
+                <div class="status-item animate-on-scroll">
+                    <div class="status-item-title">VRChat内音声の文字起こし</div>
+                    <div class="status-item-description">AIによるVRChat内の会話のリアルタイム文字起こしと保存機能。</div>
+                </div>
+                <div class="status-item animate-on-scroll">
+                    <div class="status-item-title">VR設定リモートコントロール</div>
+                    <div class="status-item-description">ヘッドセットを外さずに、VRChatの各種設定（音量、グラフィックなど）をスマートフォンから調整。</div>
+                </div>
+            </div>
+            
+            <div class="hero-buttons animate-on-scroll">
+                <a href="#" class="btn btn-primary">開発状況を追跡</a>
+                <a href="#" class="btn btn-secondary">フィードバックを送る</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-container animate-on-scroll">
+            <div class="footer-links">
+                <a href="#" class="footer-link">開発ブログ</a>
+                <a href="#" class="footer-link">GitHub</a>
+                <a href="#" class="footer-link">Discord</a>
+                <a href="#" class="footer-link">お問い合わせ</a>
+            </div>
+            <div class="footer-bottom">
+                © 2025 VRCPoket. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- --- スクロールアニメーション用JavaScript --- -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Intersection Observer for general scroll animations
+            const animateElements = document.querySelectorAll('.animate-on-scroll, .animate-slide-left, .animate-fade-in');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // Navigation bar background change on scroll
+            const navContainer = document.querySelector('.nav-container');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navContainer.classList.add('scrolled');
+                } else {
+                    navContainer.classList.remove('scrolled');
+                }
+            });
+
+            // Hero content animation (Vision Pro style)
+            const heroSection = document.querySelector('.hero');
+            const heroContent = document.getElementById('heroContent');
+            const heroAnimatedElements = heroContent.querySelectorAll('.hero-animated-element');
+
+            function animateHeroContent() {
+                const scrollY = window.scrollY;
+                const viewportHeight = window.innerHeight;
+
+                // Define animation phases relative to the hero section's top
+                const heroSectionTop = heroSection.offsetTop;
+
+                // Phase 0: Initial fixed state (before animation starts)
+                // Content remains hidden and fixed until this scroll point
+                const initialFixedEnd = heroSectionTop + viewportHeight * 0.5; // Fix for first 50% of viewport height scrolled
+
+                // Phase 1: Fade in and slide up (for each element)
+                const fadeInDuration = viewportHeight * 0.3; // Fade in over 30% of viewport height
+                const fadeInStart = initialFixedEnd;
+                const fadeInEnd = fadeInStart + fadeInDuration;
+
+                // Phase 2: Fixed and fully visible
+                const fixedDuration = viewportHeight * 0.7; // Fixed for 70% of viewport height
+                const fixedStart = fadeInEnd;
+                const fixedEnd = fixedStart + fixedDuration;
+
+                // Phase 3: Fade out and slide up further (for each element)
+                const fadeOutDuration = viewportHeight * 0.3; // Fade out over 30% of viewport height
+                const fadeOutStart = fixedEnd;
+                const fadeOutEnd = fadeOutStart + fadeOutDuration;
+
+                heroAnimatedElements.forEach((element, index) => {
+                    let opacity = 0;
+                    let translateY = 50; // Initial offset for slide-up effect
+                    let scale = 0.95; // Initial scale for zoom-in effect
+
+                    // Add a slight delay for each element
+                    const delayFactor = index * 0.05; // Adjust this for desired stagger effect
+
+                    if (scrollY < fadeInStart) {
+                        // Before animation starts: fixed and hidden
+                        opacity = 0;
+                        translateY = 50;
+                        scale = 0.95;
+                    } else if (scrollY >= fadeInStart && scrollY < fadeInEnd) {
+                        // Phase 1: Fade in and move up
+                        const progress = Math.max(0, (scrollY - fadeInStart) / fadeInDuration);
+                        opacity = Math.min(1, progress + delayFactor);
+                        translateY = 50 * (1 - Math.min(1, progress + delayFactor));
+                        scale = 0.95 + (0.05 * Math.min(1, progress + delayFactor)); // Scale from 0.95 to 1
+                    } else if (scrollY >= fixedStart && scrollY < fixedEnd) {
+                        // Phase 2: Fixed and fully visible
+                        opacity = 1;
+                        translateY = 0;
+                        scale = 1;
+                    } else if (scrollY >= fadeOutStart && scrollY < fadeOutEnd) {
+                        // Phase 3: Fade out and move up further
+                        const progress = (scrollY - fadeOutStart) / fadeOutDuration;
+                        opacity = Math.max(0, 1 - progress);
+                        translateY = -50 * progress; // Moves up as it fades out
+                        scale = 1 - (0.05 * progress); // Scale from 1 to 0.95
+                    } else if (scrollY >= fadeOutEnd) {
+                        // After animation ends, ensure it's hidden and off-screen
+                        opacity = 0;
+                        translateY = -50;
+                        scale = 0.95;
+                    }
+
+                    element.style.opacity = opacity;
+                    element.style.transform = `translateY(${translateY}px) scale(${scale})`;
+                });
+            }
+
+            // Initial call and add scroll listener
+            animateHeroContent();
+            window.addEventListener('scroll', animateHeroContent);
+            window.addEventListener('resize', animateHeroContent); // Recalculate on resize
+        });
+    </script>
+    <!-- --- スクロールアニメーション用JavaScript 終わり --- -->
+</body>
+</html>
