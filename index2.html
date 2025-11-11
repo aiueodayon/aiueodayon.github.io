@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ソート</title>
+  <style>
+    body { font-family: sans-serif; background: #f5f5f5; margin: 0; padding: 20px; }
+    #controls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+    button, select, input { padding: 6px 10px; font-size: 14px; }
+    #container { display: flex; align-items: flex-end; height: 300px; border: 1px solid #ccc; background: #fff; padding: 10px; }
+    .bar { background: #4a90e2; margin: 1px; flex: 1; }
+    .bar.active { background: #e24a77; }
+  </style>
+</head>
+<body>
+  <h1>ソート</h1>
+  <div id="controls">
+    <label>アルゴリズム: 
+      <select id="algorithm">
+        <option value="bubble">バブルソート</option>
+        <option value="selection">選択ソート</option>
+        <option value="insertion">挿入ソート</option>
+        <option value="merge">マージソート</option>
+        <option value="quick">クイックソート</option>
+        <option value="bogo">ボゴソート</option>
+        <option value="stalin">スターリンソート</option>
+      </select>
+    </label>
+    <label>サイズ: <input type="range" id="size" min="5" max="120" value="30"></label>
+    <label>スピード(ms): <input type="range" id="speed" min="1" max="200" value="30"></label>
+    <button id="random">ランダム</button>
+    <button id="start">開始</button>
+    <button id="stepModeBtn">一手ずつ: OFF</button>
+    <button id="stepBtn">Step ▶</button>
+  </div>
+  <div id="container"></div>
+
+<script>
+let arr = [];
+const container = document.getElementById('container');
+const sizeInput = document.getElementById('size');
+const speedInput = document.getElementById('speed');
+let stepMode = false;
+let stepResolve = null;
+
+function generateArray() {
+  arr = Array.from({ length: +sizeInput.value }, () => Math.floor(Math.random() * 100) + 1);
+  render();
+}
+
+function render(activeA = null, activeB = null) {
+  container.innerHTML = '';
+  arr.forEach((val, idx) => {
+    const bar = document.createElement('div');
+    bar.className = 'bar';
+    bar.style.height = val * 2 + 'px';
+    if (idx === activeA || idx === activeB) bar.classList.add('active');
+    container.appendChild(bar);
+  });
+}
+
+function sleep() { return new Promise(r => setTimeout(r, speedInput.value)); }
+async function waitStep(activeA, activeB) {
+  render(activeA, activeB);
+  if (stepMode) {
+    return new Promise(res => stepResolve = res);
+  } else {
+    await sleep();
+  }
+}
+
+document.getElementById('stepBtn').onclick = () => {
+  if (stepResolve) { stepResolve(); stepResolve = null; }
+};
+
+document.getElementById('stepModeBtn').onclick = () => {
+  stepMode = !stepMode;
+  document.getElementById('stepModeBtn').textContent = `一手ずつ: ${stepMode ? 'ON' : 'OFF'}`;
+};
+
+// バブル
+async function bubbleSort() {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length - i - 1; j++) {
+      await waitStep(j, j+1);
+      if (arr[j] > arr[j+1]) [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
+    }
+  }
+}
+
+// 選択
+async function selectionSort() {
+  for (let i = 0; i < arr.length; i++) {
+    let min = i;
+    for (let j = i+1; j < arr.length; j++) {
+      await waitStep(min, j);
+      if (arr[j] < arr[min]) min = j;
+    }
+    [arr[i], arr[min]] = [arr[min], arr[i]];
+  }
+}
+
+// 挿入
+async function insertionSort() {
+  for (let i = 1; i < arr.length; i++) {
+    let key = arr[i];
+    let j = i - 1;
+    while (j >= 0 && arr[j] > key) {
+      arr[j+1] = arr[j];
+      await waitStep(j, j+1);
+      j--;
+    }
+    arr[j+1] = key;
+  }
+}
+
+// マージ
+async function mergeSort(start = 0, end = arr.length) {
+  if (end - start <= 1) return;
+  const mid = Math.floor((start + end) / 2);
+  await mergeSort(start, mid);
+  await mergeSort(mid, end);
+  const left = arr.slice(start, mid);
+  const right = arr.slice(mid, end);
+  let i = 0, j = 0, k = start;
+  while (i < left.length && j < right.length) {
+    arr[k] = left[i] < right[j] ? left[i++] : right[j++];
+    await waitStep(k);
+    k++;
+  }
+  while (i < left.length) { arr[k] = left[i++]; await waitStep(k++); }
+  while (j < right.length) { arr[k] = right[j++]; await waitStep(k++); }
+}
+
+// クイック
+async function quickSort(low = 0, high = arr.length - 1) {
+  if (low >= high) return;
+  let pivot = arr[high], i = low;
+  for (let j = low; j < high; j++) {
+    await waitStep(j, high);
+    if (arr[j] < pivot) { [arr[i], arr[j]] = [arr[j], arr[i]]; i++; }
+  }
+  [arr[i], arr[high]] = [arr[high], arr[i]];
+  await quickSort(low, i - 1);
+  await quickSort(i + 1, high);
+}
+
+// ボゴソート
+function isSorted() {
+  for (let i = 1; i < arr.length; i++) if (arr[i] < arr[i-1]) return false;
+  return true;
+}
+async function bogoSort() {
+  while (!isSorted()) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    await waitStep();
+  }
+}
+
+// スターリンソート（粛清を可視化）
+async function stalinSort() {
+  if (arr.length === 0) return;
+
+  let maxVal = arr[0];
+
+  for (let i = 1; i < arr.length; i++) {
+    await waitStep(i - 1, i); // 比較演出
+    if (arr[i] >= maxVal) {
+      maxVal = arr[i]; // 生存
+    } else {
+      // 粛清：要素を消す
+      arr.splice(i, 1);
+      i--; // インデックス戻す
+      render(); // 即消滅描画
+      await sleep(); // 消滅の間を作る
+    }
+  }
+}
+
+
+async function startSort() {
+  const algo = document.getElementById('algorithm').value;
+  if (algo === 'bubble') await bubbleSort();
+  if (algo === 'selection') await selectionSort();
+  if (algo === 'insertion') await insertionSort();
+  if (algo === 'merge') await mergeSort();
+  if (algo === 'quick') await quickSort();
+  if (algo === 'bogo') await bogoSort();
+  if (algo === 'stalin') await stalinSort();
+  render();
+}
+
+document.getElementById('random').onclick = generateArray;
+document.getElementById('start').onclick = startSort;
+sizeInput.oninput = generateArray;
+generateArray();
+</script>
+</body>
+</html>
