@@ -1,0 +1,322 @@
+astral@astralpi:~/Documents $ cat song.txt 
+https://youtu.be/FtutLA63Cp8?si=SuJxHT6WA0vdevCJ
+https://youtu.be/WN70qkS0sRk?si=KpLYQayM-D5FbtAQ
+https://youtu.be/B7xai5u_tnk?si=7C2saNOrZpxtNCAy
+https://youtu.be/8Cm-7oCq9HA?si=B3V2tLozx2qs1V7a
+https://youtu.be/ZUo8o5iiLpM?si=SgPNr2nyPjnpziEu
+https://youtu.be/EEk4JGzqoFg?si=uk40tQARQLq7dIJ9
+https://youtu.be/wggigwtz4dQ?si=8N8idiV8l08CFEY1
+https://youtu.be/toPWvdaC84w?si=gyoYiULK0ZlxDv9x
+https://youtu.be/Js_-gKm1RYI?si=3MItlwG_g0DzvZ5t
+https://youtu.be/k0XlD_nx4E4?si=9Dz_-i8bgrzw7KVW
+https://youtu.be/OgQc2wSjy3c?si=TjA10blNRnvX88nW
+https://youtu.be/l3UvRTpHqKY?si=nwryC7Muh_F1nX8k
+https://youtu.be/QHtuhQHxZ0M?si=E8s20UYjJXHUilRh
+https://youtu.be/RxQKk1jwYP8?si=n2zJOw5E3OoYJElv
+https://youtu.be/FSLxRRQdNs4?si=aOW7G1nvh0CbYY5Y
+https://youtu.be/olWvy0PiLfA?si=ubWrhkIHxkoBjhfK
+https://youtu.be/8ZP5eqm4JqM?si=0Y3-mfHTUY-eJ7eT
+https://youtu.be/qXIgkqDML00?si=OyjzQxOhVbob3Guq
+https://youtu.be/4XiNOdMkgtw?si=qbs1vOVlOmRhyEI7
+https://youtu.be/UClCMjYLTh8?si=xHuMnS68FAtJ0bnm
+https://youtu.be/Yd8P4K7pQ6A?si=vaqtot8uRjeISQ6R
+https://youtu.be/ST_AJmY_Tcc?si=zTlnL973dNbG10k8
+https://youtu.be/6YIf6UwoYrM?si=nCBnLtlk76YxrVVR
+https://youtu.be/hHE6wxQ8MYM?si=eI-CBmgzZfdDBFY6
+https://youtu.be/5GUaMOpfmr8?si=hlUIHZbWMfQJXNg0
+https://youtu.be/PhQpBT_1p7Y?si=iQlQTRKYK1Mz_8OH
+https://youtu.be/h5amxhRgsRQ?si=FdNwihtnT-7iAUo5
+https://youtu.be/C7h6-jU1DCA?si=VhYxwGCEEOXrZoDD
+https://youtu.be/eRa90TjoMZs?si=mi4KLjaG-KOdbSgm
+https://youtu.be/VDdLF1YubI0?si=BsP3-GN1n4uVdzvE
+https://youtu.be/_fmKpimgQq8?si=fYvREfAiKiZ09_Z3
+https://youtu.be/JW3N-HvU0MA?si=qwjiCklmI0VTgvvL
+https://youtu.be/AsMGJaKyX-E?si=LrzXs-nli0lReh59
+https://youtu.be/yIo2ePCm4bY?si=wrt5EaLXrFrbFYhM
+https://youtu.be/KmRzMJ2BEuY?si=VhRGSWACqX_EH3Gw
+https://youtu.be/hZFBTnzKa54?si=0jO7vm23ucgN9a7-
+https://youtu.be/deCeuTdaGak?si=n4YswP5rhjHf1acQ
+https://youtu.be/cT9F6N3Uc4M?si=o8dkKZhpwwl9pq1c
+https://youtu.be/TA5OFS_xX0c?si=yIpRGj44D2Wtd0yn
+https://youtu.be/BI9Ue6JwJic?si=2AXuJRkfLce7eyPb
+https://youtu.be/wFum2XIASwM?si=bEqSjXynAUfDa-c2
+https://youtu.be/yA_h7zM0bcU?si=TfVFKq7-8kWpaYGq
+https://youtu.be/WN70qkS0sRk?si=FtL_IIF4SBbuUAd_
+https://youtu.be/vBmU5v2EyxM?si=elA3jcdsVfkoWqNC
+https://youtu.be/T67ZMQcLy-c?si=9toShA5O9qgVaVha
+https://youtu.be/su0FCBRwVpE?si=c1wjv6NEoPlj1KrZ
+https://youtu.be/X8z23t428kU?si=1WHUMJ19CsDhysUG
+https://youtu.be/bhABIic1K44?si=HV6uasooW_x9VhJy
+astral@astralpi:~/Documents $ source venv/bin/activate
+(venv) astral@astralpi:~/Documents $ python main.py 
+
+=== 処理開始: https://youtu.be/FtutLA63Cp8?si=SuJxHT6WA0vdevCJ ===
+WARNING: [youtube] FtutLA63Cp8: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] FtutLA63Cp8: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/【東方】Bad Apple!! ＰＶ【影絵】.mp3
+
+=== 処理開始: https://youtu.be/WN70qkS0sRk?si=KpLYQayM-D5FbtAQ ===
+WARNING: [youtube] WN70qkS0sRk: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] WN70qkS0sRk: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/【MV】フェイクマリッジ\u3000/\u3000柊マグネタイト×9Lana×Eye.mp3'
+
+=== 処理開始: https://youtu.be/B7xai5u_tnk?si=7C2saNOrZpxtNCAy ===
+WARNING: [youtube] B7xai5u_tnk: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] B7xai5u_tnk: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/TheFatRat - Monody (feat. Laura Brehm).mp3
+
+=== 処理開始: https://youtu.be/8Cm-7oCq9HA?si=B3V2tLozx2qs1V7a ===
+WARNING: [youtube] 8Cm-7oCq9HA: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] 8Cm-7oCq9HA: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/[MV] TAK - ‘PPPP’ feat. 初音ミク、重音テト.mp3
+
+=== 処理開始: https://youtu.be/ZUo8o5iiLpM?si=SgPNr2nyPjnpziEu ===
+WARNING: [youtube] ZUo8o5iiLpM: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] ZUo8o5iiLpM: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/『冬の魔法』 - Aogumo.mp3
+
+=== 処理開始: https://youtu.be/EEk4JGzqoFg?si=uk40tQARQLq7dIJ9 ===
+WARNING: [youtube] EEk4JGzqoFg: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] EEk4JGzqoFg: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/稲葉曇『私は雨』Vo. 歌愛ユキ.mp3
+
+=== 処理開始: https://youtu.be/wggigwtz4dQ?si=8N8idiV8l08CFEY1 ===
+WARNING: [youtube] wggigwtz4dQ: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] wggigwtz4dQ: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/IRIS OUT.mp3
+
+=== 処理開始: https://youtu.be/toPWvdaC84w?si=gyoYiULK0ZlxDv9x ===
+WARNING: [youtube] toPWvdaC84w: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] toPWvdaC84w: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/ブルーアーカイブ Blue Archive OST 113. Usagi Flap.mp3
+
+=== 処理開始: https://youtu.be/Js_-gKm1RYI?si=3MItlwG_g0DzvZ5t ===
+WARNING: [youtube] Js_-gKm1RYI: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] Js_-gKm1RYI: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/@Aiobahn feat. KOTOKO -INTERNET YAMERO.mp3
+
+=== 処理開始: https://youtu.be/k0XlD_nx4E4?si=9Dz_-i8bgrzw7KVW ===
+WARNING: [youtube] k0XlD_nx4E4: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] k0XlD_nx4E4: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/フリーBGM「突然仲間に裏切られボス戦が始まるBGM」[戦闘系BGM].mp3
+
+=== 処理開始: https://youtu.be/OgQc2wSjy3c?si=TjA10blNRnvX88nW ===
+WARNING: [youtube] OgQc2wSjy3c: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] OgQc2wSjy3c: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/生命性シンドロウム / かめりあ feat. 初音ミク 【MV】.mp3'
+
+=== 処理開始: https://youtu.be/l3UvRTpHqKY?si=nwryC7Muh_F1nX8k ===
+WARNING: [youtube] l3UvRTpHqKY: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] l3UvRTpHqKY: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/死にたいわけじゃなくて/ 可不(KAFU).mp3'
+
+=== 処理開始: https://youtu.be/QHtuhQHxZ0M?si=E8s20UYjJXHUilRh ===
+WARNING: [youtube] QHtuhQHxZ0M: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] QHtuhQHxZ0M: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/RABBIT & STEEL ORIGINAL SOUNDTRACK - Emerald Lakeside (Calm).mp3
+
+=== 処理開始: https://youtu.be/RxQKk1jwYP8?si=n2zJOw5E3OoYJElv ===
+WARNING: [youtube] RxQKk1jwYP8: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] RxQKk1jwYP8: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/言葉のせいで / 可不(KAFU).mp3'
+
+=== 処理開始: https://youtu.be/FSLxRRQdNs4?si=aOW7G1nvh0CbYY5Y ===
+WARNING: [youtube] FSLxRRQdNs4: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] FSLxRRQdNs4: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/ただ病名が欲しかった/可不・星界・カゼヒキ.mp3'
+
+=== 処理開始: https://youtu.be/olWvy0PiLfA?si=ubWrhkIHxkoBjhfK ===
+WARNING: [youtube] olWvy0PiLfA: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] olWvy0PiLfA: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/ツユ - くらべられっ子 MV.mp3
+
+=== 処理開始: https://youtu.be/8ZP5eqm4JqM?si=0Y3-mfHTUY-eJ7eT ===
+WARNING: [youtube] 8ZP5eqm4JqM: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] 8ZP5eqm4JqM: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/ビビデバ / 星街すいせい(official).mp3'
+
+=== 処理開始: https://youtu.be/qXIgkqDML00?si=OyjzQxOhVbob3Guq ===
+WARNING: [youtube] qXIgkqDML00: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] qXIgkqDML00: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/それでも生きてていいですか\u3000/  feat. 可不.mp3'
+
+=== 処理開始: https://youtu.be/4XiNOdMkgtw?si=qbs1vOVlOmRhyEI7 ===
+WARNING: [youtube] 4XiNOdMkgtw: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] 4XiNOdMkgtw: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/ただ愛されたかった／可不.mp3
+
+=== 処理開始: https://youtu.be/UClCMjYLTh8?si=xHuMnS68FAtJ0bnm ===
+WARNING: [youtube] UClCMjYLTh8: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] UClCMjYLTh8: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/過去に戻れたら feat. 可不 - 水野あつ.mp3
+
+=== 処理開始: https://youtu.be/Yd8P4K7pQ6A?si=vaqtot8uRjeISQ6R ===
+WARNING: [youtube] Yd8P4K7pQ6A: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] Yd8P4K7pQ6A: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/でもね feat.可不 - 水野あつ.mp3
+
+=== 処理開始: https://youtu.be/ST_AJmY_Tcc?si=zTlnL973dNbG10k8 ===
+WARNING: [youtube] ST_AJmY_Tcc: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] ST_AJmY_Tcc: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/プロポーズ / 可不.mp3'
+
+=== 処理開始: https://youtu.be/6YIf6UwoYrM?si=nCBnLtlk76YxrVVR ===
+WARNING: [youtube] 6YIf6UwoYrM: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] 6YIf6UwoYrM: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/ReoNa 『生きてるだけでえらいよ』-Lyric Video-.mp3
+
+=== 処理開始: https://youtu.be/hHE6wxQ8MYM?si=eI-CBmgzZfdDBFY6 ===
+WARNING: [youtube] hHE6wxQ8MYM: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] hHE6wxQ8MYM: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/生きてしまってごめんなさい／可不.mp3
+
+=== 処理開始: https://youtu.be/5GUaMOpfmr8?si=hlUIHZbWMfQJXNg0 ===
+WARNING: [youtube] 5GUaMOpfmr8: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] 5GUaMOpfmr8: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/ロクデナシ「ただ声一つ」/ Rokudenashi - One Voice【Official Music Video】.mp3'
+
+=== 処理開始: https://youtu.be/PhQpBT_1p7Y?si=iQlQTRKYK1Mz_8OH ===
+WARNING: [youtube] PhQpBT_1p7Y: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] PhQpBT_1p7Y: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/あなたの夜が明けるまで/傘村トータ -cover- 【Cereus】.mp3'
+
+=== 処理開始: https://youtu.be/h5amxhRgsRQ?si=FdNwihtnT-7iAUo5 ===
+WARNING: [youtube] h5amxhRgsRQ: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] h5amxhRgsRQ: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/ちゃんとあるよ\u3000/  feat. 可不.mp3'
+
+=== 処理開始: https://youtu.be/C7h6-jU1DCA?si=VhYxwGCEEOXrZoDD ===
+WARNING: [youtube] C7h6-jU1DCA: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] C7h6-jU1DCA: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/抜錨 / 巡音ルカ - ナナホシ管弦楽団.mp3'
+
+=== 処理開始: https://youtu.be/eRa90TjoMZs?si=mi4KLjaG-KOdbSgm ===
+WARNING: [youtube] eRa90TjoMZs: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] eRa90TjoMZs: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/【MV】林檎売りの泡沫少女 / GUMI - yukkedoluce.mp3'
+
+=== 処理開始: https://youtu.be/VDdLF1YubI0?si=BsP3-GN1n4uVdzvE ===
+WARNING: [youtube] VDdLF1YubI0: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] VDdLF1YubI0: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/natori - Propose.mp3
+
+=== 処理開始: https://youtu.be/_fmKpimgQq8?si=fYvREfAiKiZ09_Z3 ===
+WARNING: [youtube] _fmKpimgQq8: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] _fmKpimgQq8: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/さよならプリンセス / 初音ミク.mp3'
+
+=== 処理開始: https://youtu.be/JW3N-HvU0MA?si=qwjiCklmI0VTgvvL ===
+WARNING: [youtube] JW3N-HvU0MA: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] JW3N-HvU0MA: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/みきとP 『 少女レイ 』 MV.mp3
+
+=== 処理開始: https://youtu.be/AsMGJaKyX-E?si=LrzXs-nli0lReh59 ===
+WARNING: [youtube] AsMGJaKyX-E: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] AsMGJaKyX-E: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/大切な人たちへ\u3000/  feat. 初音ミク.mp3'
+
+=== 処理開始: https://youtu.be/yIo2ePCm4bY?si=wrt5EaLXrFrbFYhM ===
+WARNING: [youtube] yIo2ePCm4bY: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] yIo2ePCm4bY: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/『 だきしめるまで。』/ feat. 可不.mp3'
+
+=== 処理開始: https://youtu.be/KmRzMJ2BEuY?si=VhRGSWACqX_EH3Gw ===
+WARNING: [youtube] KmRzMJ2BEuY: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] KmRzMJ2BEuY: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/本当だよ feat.花本朔【Hontoudayo - Natsunose】.mp3
+
+=== 処理開始: https://youtu.be/hZFBTnzKa54?si=0jO7vm23ucgN9a7- ===
+WARNING: [youtube] hZFBTnzKa54: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] hZFBTnzKa54: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/だれかの心臓になれたなら /ユリイ・カノン feat.GUMI.mp3'
+
+=== 処理開始: https://youtu.be/deCeuTdaGak?si=n4YswP5rhjHf1acQ ===
+WARNING: [youtube] deCeuTdaGak: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] deCeuTdaGak: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/ただ生きるのに向いてないだけ/故歌 feat.IA.mp3'
+
+=== 処理開始: https://youtu.be/cT9F6N3Uc4M?si=o8dkKZhpwwl9pq1c ===
+WARNING: [youtube] cT9F6N3Uc4M: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] cT9F6N3Uc4M: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/『曲名はまだないです』 - Aogumo.mp3
+
+=== 処理開始: https://youtu.be/TA5OFS_xX0c?si=yIpRGj44D2Wtd0yn ===
+WARNING: [youtube] TA5OFS_xX0c: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] TA5OFS_xX0c: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/シャルル／flower.mp3
+
+=== 処理開始: https://youtu.be/BI9Ue6JwJic?si=2AXuJRkfLce7eyPb ===
+WARNING: [youtube] BI9Ue6JwJic: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] BI9Ue6JwJic: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/DECO*27 - チェリーポップ feat. 初音ミク.mp3
+
+=== 処理開始: https://youtu.be/wFum2XIASwM?si=bEqSjXynAUfDa-c2 ===
+WARNING: [youtube] wFum2XIASwM: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] wFum2XIASwM: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/唱 / Ado  cover  9Lana.mp3'
+
+=== 処理開始: https://youtu.be/yA_h7zM0bcU?si=TfVFKq7-8kWpaYGq ===
+WARNING: [youtube] yA_h7zM0bcU: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] yA_h7zM0bcU: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/【東方MV】超ナイト・オブ・ナイツ【ビートまりお×まろん】.mp3
+
+=== 処理開始: https://youtu.be/WN70qkS0sRk?si=FtL_IIF4SBbuUAd_ ===
+WARNING: [youtube] WN70qkS0sRk: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] WN70qkS0sRk: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+エラー発生、スキップします：[Errno 2] No such file or directory: 'mp3/【MV】フェイクマリッジ\u3000/\u3000柊マグネタイト×9Lana×Eye.mp3'
+
+=== 処理開始: https://youtu.be/vBmU5v2EyxM?si=elA3jcdsVfkoWqNC ===
+WARNING: [youtube] vBmU5v2EyxM: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] vBmU5v2EyxM: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/T.M.Revolution 『HOT LIMIT』.mp3
+
+=== 処理開始: https://youtu.be/T67ZMQcLy-c?si=9toShA5O9qgVaVha ===
+WARNING: [youtube] T67ZMQcLy-c: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] T67ZMQcLy-c: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/Chevy -「Forever」.mp3
+
+=== 処理開始: https://youtu.be/su0FCBRwVpE?si=c1wjv6NEoPlj1KrZ ===
+WARNING: [youtube] su0FCBRwVpE: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] su0FCBRwVpE: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/Yunomi & nicamoq – インドア系ならトラックメイカー.mp3
+
+=== 処理開始: https://youtu.be/X8z23t428kU?si=1WHUMJ19CsDhysUG ===
+WARNING: [youtube] X8z23t428kU: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] X8z23t428kU: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/【東方MV】Help me, ERINNNNNN!!【ビートまりお】.mp3
+
+=== 処理開始: https://youtu.be/bhABIic1K44?si=HV6uasooW_x9VhJy ===
+WARNING: [youtube] bhABIic1K44: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: [youtube] bhABIic1K44: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+→ サムネ埋め込み完了
+→ 完了: mp3/Unwelcome School.mp3
+
+=== 全処理完了！ ===
+(venv) astral@astralpi:~/Documents $ 
