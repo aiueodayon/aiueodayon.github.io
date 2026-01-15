@@ -96,6 +96,22 @@
             transform: translate(-50%, -50%) scale(0.8);
         }
 
+        /* --- Mouse Trail Particles --- */
+        .trail-dot {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9990;
+            opacity: 0.6;
+            transform: translate(-50%, -50%);
+            animation: trail-anim 0.8s ease-out forwards;
+        }
+
+        @keyframes trail-anim {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+        }
+
         /* --- Click Confetti Particles --- */
         .particle {
             position: fixed;
@@ -195,14 +211,15 @@
             animation: bg-pan 60s linear infinite;
         }
 
+        /* Bouncy Scroll Reveal */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
+            transform: translateY(50px) scale(0.9);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy effect */
         }
         .reveal.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
         .shape-circle { border-radius: 50%; }
@@ -214,11 +231,6 @@
             border-right: 25px solid transparent;
             border-bottom: 50px solid var(--color-accent-3);
             transform: rotate(15deg);
-        }
-        
-        /* Magnetic Button Base */
-        .magnetic-btn {
-            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         
         /* PopIn Animation for Tags */
@@ -252,13 +264,13 @@
     <!-- Header -->
     <header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
         <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-            <a href="#" class="text-2xl font-black tracking-tighter hover:text-gray-600 transition-colors cursor-hover magnetic-btn hover-jelly" data-type="link">
+            <a href="#" class="text-2xl font-black tracking-tighter hover:text-gray-600 transition-colors cursor-hover hover-jelly" data-type="link">
                 Astral.
             </a>
             <nav class="hidden md:flex space-x-8 text-sm font-bold text-gray-500">
-                <a href="#about" class="hover:text-black transition-colors cursor-hover magnetic-btn">ABOUT</a>
-                <a href="#works" class="hover:text-black transition-colors cursor-hover magnetic-btn">WORKS</a>
-                <a href="#contact" class="hover:text-black transition-colors cursor-hover magnetic-btn">CONTACT</a>
+                <a href="#about" class="hover:text-black transition-colors cursor-hover hover-jelly">ABOUT</a>
+                <a href="#works" class="hover:text-black transition-colors cursor-hover hover-jelly">WORKS</a>
+                <a href="#contact" class="hover:text-black transition-colors cursor-hover hover-jelly">CONTACT</a>
             </nav>
             <button class="md:hidden p-2 hover-jelly">
                 <i data-lucide="menu"></i>
@@ -290,18 +302,19 @@
             </h1>
 
             <p class="text-xl md:text-2xl font-bold text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed reveal">
-                Webの世界を、もっと楽しく。<br>
-                クリックして、遊んで、探検してください。
+                私の世界へようこそ！<br>
+                Webと音楽の世界を、もっと楽しく。<br>
+                気軽に見てって遊んでって〜
             </p>
             
             <div class="flex justify-center gap-4 reveal">
-                <a href="#works" class="magnetic-btn hover-jelly px-8 py-4 bg-black text-white font-bold rounded-full hover:bg-gray-800 transition-colors shadow-lg cursor-hover inline-block">
+                <a href="#works" class="hover-jelly px-8 py-4 bg-black text-white font-bold rounded-full hover:bg-gray-800 transition-colors shadow-lg cursor-hover inline-block">
                     See My Works
                 </a>
-                <a href="https://twitter.com/kawaiiastral" target="_blank" class="magnetic-btn hover-jelly p-4 bg-white border-2 border-gray-200 rounded-full hover:border-blue-400 hover:text-blue-400 transition-colors cursor-hover inline-block">
+                <a href="https://twitter.com/kawaiiastral" target="_blank" class="hover-jelly p-4 bg-white border-2 border-gray-200 rounded-full hover:border-blue-400 hover:text-blue-400 transition-colors cursor-hover inline-block">
                     <i data-lucide="twitter"></i>
                 </a>
-                <a href="#" class="magnetic-btn hover-jelly p-4 bg-white border-2 border-gray-200 rounded-full hover:border-gray-800 hover:text-gray-800 transition-colors cursor-hover inline-block">
+                <a href="#" class="hover-jelly p-4 bg-white border-2 border-gray-200 rounded-full hover:border-gray-800 hover:text-gray-800 transition-colors cursor-hover inline-block">
                     <i data-lucide="github"></i>
                 </a>
             </div>
@@ -313,10 +326,10 @@
         <div class="marquee-container">
             <!-- 2 Identical contents for seamless loop -->
             <div class="marquee-content text-4xl md:text-6xl font-black tracking-widest">
-                CLICK ANYWHERE • PLAY WITH ME • MOTION DESIGN • WEB DESIGN • CREATIVE CODING • CLICK ANYWHERE • PLAY WITH ME • MOTION DESIGN • 
+                WELCOME TO PORTFOLIO! • ENJOY THE CREATIVE WORLD! • WELCOME TO PORTFOLIO! • ENJOY THE CREATIVE WORLD! • 
             </div>
             <div class="marquee-content text-4xl md:text-6xl font-black tracking-widest">
-                CLICK ANYWHERE • PLAY WITH ME • MOTION DESIGN • WEB DESIGN • CREATIVE CODING • CLICK ANYWHERE • PLAY WITH ME • MOTION DESIGN • 
+                WELCOME TO PORTFOLIO! • ENJOY THE CREATIVE WORLD! • WELCOME TO PORTFOLIO! • ENJOY THE CREATIVE WORLD! • 
             </div>
         </div>
     </div>
@@ -340,11 +353,11 @@
                     <i data-lucide="pen-tool" class="text-pink-500 hover-jelly"></i> Design Tools
                 </h3>
                 <div class="flex flex-wrap gap-3">
-                    <span class="tag-animate px-4 py-2 bg-pink-50 text-pink-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.1s">Figma</span>
-                    <span class="tag-animate px-4 py-2 bg-pink-50 text-pink-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.2s">Adobe Photoshop</span>
+                    <span class="tag-animate px-4 py-2 bg-pink-50 text-pink-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.1s">Canva</span>
+                    <span class="tag-animate px-4 py-2 bg-pink-50 text-pink-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.2s">Figma</span>
                     <span class="tag-animate px-4 py-2 bg-pink-50 text-pink-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.3s">Illustrator</span>
-                    <span class="tag-animate px-4 py-2 bg-pink-50 text-pink-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.4s">After Effects</span>
-                    <span class="tag-animate px-4 py-2 bg-pink-50 text-pink-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.5s">Blender</span>
+                    <span class="tag-animate px-4 py-2 bg-pink-50 text-pink-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.4s">Blender</span>
+                    <span class="tag-animate px-4 py-2 bg-pink-50 text-pink-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.5s">Procreate</span>
                 </div>
             </div>
 
@@ -354,12 +367,14 @@
                     <i data-lucide="code-2" class="text-cyan-500 hover-jelly"></i> Tech Stack
                 </h3>
                 <div class="flex flex-wrap gap-3">
-                    <span class="tag-animate px-4 py-2 bg-cyan-50 text-cyan-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.1s">HTML5</span>
-                    <span class="tag-animate px-4 py-2 bg-cyan-50 text-cyan-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.2s">CSS3 / SCSS</span>
+                    <span class="tag-animate px-4 py-2 bg-cyan-50 text-cyan-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.1s">HTML</span>
+                    <span class="tag-animate px-4 py-2 bg-cyan-50 text-cyan-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.2s">CSS</span>
                     <span class="tag-animate px-4 py-2 bg-cyan-50 text-cyan-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.3s">JavaScript</span>
                     <span class="tag-animate px-4 py-2 bg-cyan-50 text-cyan-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.4s">React</span>
-                    <span class="tag-animate px-4 py-2 bg-cyan-50 text-cyan-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.5s">Three.js</span>
-                    <span class="tag-animate px-4 py-2 bg-cyan-50 text-cyan-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.6s">Next.js</span>
+                    <span class="tag-animate px-4 py-2 bg-cyan-50 text-cyan-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.5s">Java</span>
+                    <span class="tag-animate px-4 py-2 bg-cyan-50 text-cyan-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.6s">C / C++ / C#</span>
+                    <span class="tag-animate px-4 py-2 bg-cyan-50 text-cyan-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.7s">Python</span>
+                    <span class="tag-animate px-4 py-2 bg-cyan-50 text-cyan-600 font-bold rounded-lg text-sm cursor-hover hover:scale-110 hover-jelly transition-transform" style="animation-delay: 0.8s">Swift</span>
                 </div>
             </div>
 
@@ -379,6 +394,14 @@
                     </li>
                     <li class="flex items-center gap-3 hover-jelly origin-left">
                         <span class="w-2 h-2 bg-yellow-400 rounded-full"></span>
+                        Music Composition (作曲)
+                    </li>
+                    <li class="flex items-center gap-3 hover-jelly origin-left">
+                        <span class="w-2 h-2 bg-yellow-400 rounded-full"></span>
+                        Mixing & Mastering (Mix)
+                    </li>
+                    <li class="flex items-center gap-3 hover-jelly origin-left">
+                        <span class="w-2 h-2 bg-yellow-400 rounded-full"></span>
                         Motion Graphics
                     </li>
                     <li class="flex items-center gap-3 hover-jelly origin-left">
@@ -392,7 +415,7 @@
             <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow reveal flex flex-col justify-center items-center text-center relative overflow-hidden group hover:-translate-y-2 duration-300">
                 <div class="absolute inset-0 bg-gradient-to-br from-purple-50 to-pink-50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 <h3 class="text-xl font-black mb-2 relative z-10 text-purple-400">MBTI</h3>
-                <p class="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 relative z-10 cursor-hover hover-jelly transition-transform duration-300">
+                <p class="text-6xl font-black text-purple-500 relative z-10 cursor-hover hover-jelly transition-transform duration-300">
                     INFP
                 </p>
                 <p class="text-sm text-gray-400 font-bold mt-2 relative z-10">Mediator (仲介者)</p>
@@ -405,54 +428,110 @@
     <section id="works" class="py-24 px-6 max-w-7xl mx-auto">
         <div class="flex items-end justify-between mb-16 px-2">
             <div>
-                <span class="text-pink-500 font-bold tracking-widest uppercase text-sm">Portfolio</span>
-                <h2 class="text-4xl md:text-5xl font-black mt-2">Selected Works</h2>
+                <span class="text-pink-500 font-bold tracking-widest uppercase text-sm">Works by in 418(tea)</span>
+                <h2 class="text-4xl md:text-5xl font-black mt-2">Music Works</h2>
             </div>
             <div class="hidden md:block text-right">
-                <p class="text-gray-400 text-sm font-bold">Latest Projects</p>
-                <p class="text-gray-400 text-sm font-bold">Web / Animation</p>
+                <p class="text-gray-400 text-sm font-bold">Composition / Mix</p>
+                <p class="text-gray-400 text-sm font-bold">SoundCloud / YouTube</p>
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Work Cards -->
+            <!-- Work Card 1: Composition -->
             <article class="work-card group cursor-hover reveal">
                 <div class="relative overflow-hidden rounded-2xl bg-gray-200 aspect-video mb-4 shadow-md border-2 border-transparent group-hover:border-black transition-colors">
-                    <div class="absolute inset-0 bg-gradient-to-br from-pink-100 to-blue-100 flex items-center justify-center">
-                        <span class="text-4xl opacity-20 font-black group-hover:scale-110 transition-transform duration-500">PJ.01</span>
+                    <div class="absolute inset-0 bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center">
+                        <i data-lucide="music" class="w-16 h-16 text-indigo-300 group-hover:scale-110 transition-transform duration-500"></i>
                     </div>
-                    <div class="card-overlay absolute inset-0 bg-black/10 opacity-0 transition-opacity duration-300 flex items-center justify-center">
-                        <div class="bg-white px-4 py-2 rounded-full font-bold text-sm shadow-sm hover-jelly">View Details</div>
+                    <div class="card-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                        <div class="bg-white px-6 py-3 rounded-full font-bold text-sm shadow-lg hover-jelly flex items-center gap-2">
+                            <i data-lucide="play-circle" class="w-4 h-4"></i> Play Demo
+                        </div>
                     </div>
                 </div>
-                <h3 class="text-xl font-bold group-hover:text-pink-500 transition-colors">Project Alpha</h3>
-                <p class="text-gray-500 text-sm font-medium mt-1">Web Design</p>
+                <h3 class="text-xl font-bold group-hover:text-indigo-500 transition-colors">Midnight Highway</h3>
+                <p class="text-gray-500 text-sm font-medium mt-1">Original Song / Composition</p>
             </article>
 
+            <!-- Work Card 2: BGM -->
             <article class="work-card group cursor-hover reveal">
                 <div class="relative overflow-hidden rounded-2xl bg-gray-200 aspect-video mb-4 shadow-md border-2 border-transparent group-hover:border-black transition-colors">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-yellow-100 to-green-100 flex items-center justify-center">
-                        <span class="text-4xl opacity-20 font-black group-hover:scale-110 transition-transform duration-500">PJ.02</span>
+                    <div class="absolute inset-0 bg-gradient-to-tr from-emerald-100 to-teal-100 flex items-center justify-center">
+                        <i data-lucide="headphones" class="w-16 h-16 text-emerald-300 group-hover:scale-110 transition-transform duration-500"></i>
                     </div>
-                    <div class="card-overlay absolute inset-0 bg-black/10 opacity-0 transition-opacity duration-300 flex items-center justify-center">
-                        <div class="bg-white px-4 py-2 rounded-full font-bold text-sm shadow-sm hover-jelly">View Details</div>
+                    <div class="card-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                        <div class="bg-white px-6 py-3 rounded-full font-bold text-sm shadow-lg hover-jelly flex items-center gap-2">
+                            <i data-lucide="play-circle" class="w-4 h-4"></i> Play Demo
+                        </div>
                     </div>
                 </div>
-                <h3 class="text-xl font-bold group-hover:text-green-500 transition-colors">Neon Landing Page</h3>
-                <p class="text-gray-500 text-sm font-medium mt-1">Animation</p>
+                <h3 class="text-xl font-bold group-hover:text-emerald-500 transition-colors">Forest Adventure BGM</h3>
+                <p class="text-gray-500 text-sm font-medium mt-1">Game Music / Composition</p>
             </article>
 
-             <article class="work-card group cursor-hover reveal">
+            <!-- Work Card 3: Mix -->
+            <article class="work-card group cursor-hover reveal">
                 <div class="relative overflow-hidden rounded-2xl bg-gray-200 aspect-video mb-4 shadow-md border-2 border-transparent group-hover:border-black transition-colors">
-                    <div class="absolute inset-0 bg-gradient-to-bl from-purple-100 to-pink-100 flex items-center justify-center">
-                        <span class="text-4xl opacity-20 font-black group-hover:scale-110 transition-transform duration-500">PJ.03</span>
+                    <div class="absolute inset-0 bg-gradient-to-bl from-rose-100 to-orange-100 flex items-center justify-center">
+                        <i data-lucide="mic-2" class="w-16 h-16 text-rose-300 group-hover:scale-110 transition-transform duration-500"></i>
                     </div>
-                    <div class="card-overlay absolute inset-0 bg-black/10 opacity-0 transition-opacity duration-300 flex items-center justify-center">
-                        <div class="bg-white px-4 py-2 rounded-full font-bold text-sm shadow-sm hover-jelly">View Details</div>
+                    <div class="card-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                        <div class="bg-white px-6 py-3 rounded-full font-bold text-sm shadow-lg hover-jelly flex items-center gap-2">
+                            <i data-lucide="play-circle" class="w-4 h-4"></i> Play Demo
+                        </div>
                     </div>
                 </div>
-                <h3 class="text-xl font-bold group-hover:text-purple-500 transition-colors">Corporate Site</h3>
-                <p class="text-gray-500 text-sm font-medium mt-1">Coding</p>
+                <h3 class="text-xl font-bold group-hover:text-rose-500 transition-colors">Spring Wind (Cover)</h3>
+                <p class="text-gray-500 text-sm font-medium mt-1">Vocal Mix / Mastering</p>
+            </article>
+
+            <!-- Work Card 4: Mix -->
+            <article class="work-card group cursor-hover reveal">
+                <div class="relative overflow-hidden rounded-2xl bg-gray-200 aspect-video mb-4 shadow-md border-2 border-transparent group-hover:border-black transition-colors">
+                    <div class="absolute inset-0 bg-gradient-to-r from-cyan-100 to-blue-100 flex items-center justify-center">
+                        <i data-lucide="sliders" class="w-16 h-16 text-cyan-300 group-hover:scale-110 transition-transform duration-500"></i>
+                    </div>
+                    <div class="card-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                        <div class="bg-white px-6 py-3 rounded-full font-bold text-sm shadow-lg hover-jelly flex items-center gap-2">
+                            <i data-lucide="play-circle" class="w-4 h-4"></i> Play Demo
+                        </div>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold group-hover:text-cyan-500 transition-colors">Cyber Punk Track</h3>
+                <p class="text-gray-500 text-sm font-medium mt-1">Arrangement / Mix</p>
+            </article>
+
+            <!-- Work Card 5: Album -->
+            <article class="work-card group cursor-hover reveal">
+                <div class="relative overflow-hidden rounded-2xl bg-gray-200 aspect-video mb-4 shadow-md border-2 border-transparent group-hover:border-black transition-colors">
+                    <div class="absolute inset-0 bg-gradient-to-br from-yellow-100 to-amber-100 flex items-center justify-center">
+                        <i data-lucide="disc" class="w-16 h-16 text-amber-300 group-hover:scale-110 transition-transform duration-500"></i>
+                    </div>
+                    <div class="card-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                        <div class="bg-white px-6 py-3 rounded-full font-bold text-sm shadow-lg hover-jelly flex items-center gap-2">
+                            <i data-lucide="external-link" class="w-4 h-4"></i> View Album
+                        </div>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold group-hover:text-amber-500 transition-colors">1st EP "Tea Time"</h3>
+                <p class="text-gray-500 text-sm font-medium mt-1">Composition / Release</p>
+            </article>
+
+            <!-- Work Card 6: This Site (Web) -->
+            <article class="work-card group cursor-hover reveal">
+                <div class="relative overflow-hidden rounded-2xl bg-gray-200 aspect-video mb-4 shadow-md border-2 border-transparent group-hover:border-black transition-colors">
+                    <div class="absolute inset-0 bg-gray-100 flex items-center justify-center">
+                        <span class="text-4xl opacity-20 font-black group-hover:scale-110 transition-transform duration-500">WEB</span>
+                    </div>
+                    <div class="card-overlay absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                        <div class="bg-white px-6 py-3 rounded-full font-bold text-sm shadow-lg hover-jelly flex items-center gap-2">
+                            <i data-lucide="code" class="w-4 h-4"></i> View Details
+                        </div>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold group-hover:text-gray-700 transition-colors">Astral's Portfolio</h3>
+                <p class="text-gray-500 text-sm font-medium mt-1">Web Design / Coding (This Site)</p>
             </article>
         </div>
     </section>
@@ -464,13 +543,13 @@
         <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
             <h2 class="text-3xl md:text-5xl font-black mb-8 animate-float">Let's Play!</h2>
             <div class="flex justify-center gap-6 flex-wrap">
-                <div class="magnetic-btn hover-jelly w-32 h-32 bg-pink-500 rounded-lg animate-float flex items-center justify-center font-bold shadow-[0_0_20px_rgba(236,72,153,0.6)] cursor-hover">
+                <div class="hover-jelly w-32 h-32 bg-pink-500 rounded-lg animate-float flex items-center justify-center font-bold shadow-[0_0_20px_rgba(236,72,153,0.6)] cursor-hover">
                     Hover Me
                 </div>
-                <div class="magnetic-btn hover-jelly w-32 h-32 bg-cyan-400 rounded-full animate-float-delay-1 flex items-center justify-center text-black font-bold shadow-[0_0_20px_rgba(34,211,238,0.6)] cursor-hover">
+                <div class="hover-jelly w-32 h-32 bg-cyan-400 rounded-full animate-float-delay-1 flex items-center justify-center text-black font-bold shadow-[0_0_20px_rgba(34,211,238,0.6)] cursor-hover">
                     Click Me
                 </div>
-                <div class="magnetic-btn hover-jelly w-32 h-32 bg-yellow-400 rounded-tr-3xl rounded-bl-3xl animate-float-delay-2 flex items-center justify-center text-black font-bold shadow-[0_0_20px_rgba(250,204,21,0.6)] cursor-hover">
+                <div class="hover-jelly w-32 h-32 bg-yellow-400 rounded-tr-3xl rounded-bl-3xl animate-float-delay-2 flex items-center justify-center text-black font-bold shadow-[0_0_20px_rgba(250,204,21,0.6)] cursor-hover">
                     Play
                 </div>
             </div>
@@ -519,6 +598,11 @@
             mouseX = e.clientX;
             mouseY = e.clientY;
             
+            // Mouse Trail Logic
+            if (Math.random() > 0.7) { // 30% chance to create dot on move to avoid flooding
+                createTrailDot(mouseX, mouseY);
+            }
+
             // Parallax Effect with Rotation
             document.querySelectorAll('.parallax-layer').forEach(layer => {
                 const speed = parseFloat(layer.getAttribute('data-speed'));
@@ -533,39 +617,39 @@
 
                 layer.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
             });
-            
-            // Magnetic Button Effect
-            document.querySelectorAll('.magnetic-btn').forEach(btn => {
-                const rect = btn.getBoundingClientRect();
-                const btnX = rect.left + rect.width / 2;
-                const btnY = rect.top + rect.height / 2;
-                const dist = Math.sqrt(Math.pow(mouseX - btnX, 2) + Math.pow(mouseY - btnY, 2));
-                
-                const magneticRange = 80;
-
-                if (dist < magneticRange) {
-                    const moveX = (mouseX - btnX) * 0.15;
-                    const moveY = (mouseY - btnY) * 0.15;
-                    btn.style.transform = `translate(${moveX}px, ${moveY}px)`;
-                } else {
-                    btn.style.transform = `translate(0px, 0px)`;
-                }
-            });
         });
+
+        // Mouse Trail Dot Creation
+        const trailColors = ['#FF477E', '#00D2FC', '#FFD166'];
+        
+        function createTrailDot(x, y) {
+            const dot = document.createElement('div');
+            dot.classList.add('trail-dot');
+            
+            const size = Math.random() * 8 + 4;
+            const color = trailColors[Math.floor(Math.random() * trailColors.length)];
+            
+            dot.style.width = `${size}px`;
+            dot.style.height = `${size}px`;
+            dot.style.backgroundColor = color;
+            dot.style.left = `${x}px`;
+            dot.style.top = `${y}px`;
+            
+            document.body.appendChild(dot);
+            
+            setTimeout(() => {
+                dot.remove();
+            }, 800);
+        }
         
         // Also update parallax on scroll to ensure smooth rotation
         document.addEventListener('scroll', () => {
              document.querySelectorAll('.parallax-layer').forEach(layer => {
                 // We re-use the last mouse position if possible, but mainly update rotation here
-                // For simplicity, we just trigger the transform update in the mousemove logic or separate it.
                 // Simplified approach: just let mousemove handle it for now or:
                 const rotateSpeed = parseFloat(layer.getAttribute('data-rotate') || 0);
                 const currentTransform = layer.style.transform;
-                // Extract translate if possible, or just re-calculate basic rotation
-                // A full implementation requires state tracking, but the mousemove handler above covers it when mouse moves.
-                // To make it rotate even when mouse doesn't move but we scroll:
-                const scrollY = window.scrollY;
-                // Note: This simple implementation implies rotation updates mostly on mousemove + scroll combination.
+                // Full logic omitted for simplicity, scroll event primarily updates render loop if using canvas
              });
         });
 
