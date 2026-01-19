@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>In 418 Portfolio</title>
+    <meta name="description" content="Sound Creator In 418 (tea) Portfolio Site">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS (開発用CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Lucide Icons -->
@@ -22,22 +23,13 @@
                 extend: {
                     colors: {
                         pop: {
-                            yellow: '#FFD700', // Gold/Yellow from SVG
+                            yellow: '#FFD700', // Gold/Yellow
                             dark: '#1a1a1a',
                             gray: '#f9f9f9'
                         }
                     },
                     fontFamily: {
                         sans: ['Noto Sans JP', 'sans-serif'],
-                    },
-                    animation: {
-                        'slide-up': 'slideUp 0.8s cubic-bezier(0.87, 0, 0.13, 1) forwards',
-                    },
-                    keyframes: {
-                        slideUp: {
-                            '0%': { transform: 'translateY(0)' },
-                            '100%': { transform: 'translateY(-100%)' }
-                        }
                     }
                 }
             }
@@ -49,15 +41,13 @@
             font-family: 'Noto Sans JP', sans-serif;
         }
         
-        /* SVG Animation Styles */
+        /* SVG Animation Styles (Hero Section) */
         svg#mySvg {
             width: 100%;
             height: auto;
             max-width: 800px;
             stroke-linecap: round;
             stroke-linejoin: round;
-            /* 影を削除してフラットに */
-            /* filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); */
         }
 
         @keyframes drawStroke {
@@ -90,16 +80,31 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #FFD700;
+            background-color: #ffffff;
             z-index: 9999;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            transition: opacity 0.8s ease-out, visibility 0.8s;
         }
         
+        .fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .opening-svg {
+            width: 60vmin;
+            height: 60vmin;
+            max-width: 500px;
+            max-height: 500px;
+            opacity: 0;
+        }
+
         .opening-active {
-            overflow: hidden; /* Prevent scrolling during opening */
+            overflow: hidden;
         }
     </style>
 </head>
@@ -107,26 +112,28 @@
 
     <!-- Opening Overlay -->
     <div id="opening-overlay">
-        <div class="text-4xl md:text-6xl font-black text-pop-dark tracking-tighter mb-4 animate-bounce">
-            In 418
-        </div>
-        <div class="text-xl font-bold text-pop-dark">( tea )</div>
+        <svg class="opening-svg" viewBox="0 0 1074 1051" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path id="opening-path" d="M144.5 335.009L558.5 125.009L125 629.509L933 207.509L183.5 890.509L949 504.009L488 925.509L933 804.009" stroke="#FFD700" stroke-width="250" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
     </div>
 
     <!-- Navigation -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-6">
         <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
-            <!-- Logo SVG -->
-            <div class="cursor-pointer group" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
-                <svg viewBox="0 0 1190 577" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-10 md:h-12 w-auto text-pop-dark group-hover:text-pop-yellow transition-colors duration-300">
-                    <path d="M181.424 129.796C181.424 129.796 242.924 76.2958 297.424 44.7958C351.924 13.2958 433.424 8.29579 433.424 8.29579C433.424 8.29579 324.424 218.796 257.424 324.796C190.424 430.796 126.924 502.296 102.924 525.796C78.9243 549.296 27.9243 577.796 12.9243 566.296C-2.07565 554.796 14.9243 493.296 52.9243 447.796C90.9244 402.296 251.424 294.796 308.424 260.296C365.424 225.796 408.424 209.796 414.424 207.796C420.424 205.796 362.924 307.296 374.424 298.296C385.924 289.296 443.924 234.796 464.924 216.796C485.924 198.796 516.424 183.796 508.424 198.796C500.424 213.796 494.424 223.296 485.924 240.296C477.424 257.296 469.924 273.296 479.424 272.796C488.924 272.296 510.424 266.796 534.924 250.296C559.424 233.796 735.924 66.2958 735.924 66.2958L574.924 219.296C574.924 219.296 796.424 191.796 785.424 197.796C774.424 203.796 619.424 298.296 619.424 298.296L888.924 54.2958C888.924 54.2958 796.924 273.296 785.424 298.296C773.924 323.296 992.424 170.296 1036.42 143.296C1080.42 116.296 1103.92 96.7958 1100.92 78.7958C1097.92 60.7958 1081.92 52.7958 1058.92 54.2958C1035.92 55.7958 983.924 85.7958 973.924 122.796C963.924 159.796 1060.42 219.296 1030.92 252.296C1001.42 285.296 976.924 309.296 938.424 307.296C899.924 305.296 907.924 231.796 907.924 231.796" stroke="currentColor" stroke-width="40"/>
+            <!-- Logo SVG (Home Link) -->
+            <!-- Fixed: Replaced path data with the main animation's data and adjusted viewBox/padding -->
+            <a href="./" class="group cursor-pointer block p-1">
+                <svg viewBox="-50 -50 1290 677" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-10 md:h-12 w-auto text-pop-dark group-hover:text-pop-yellow transition-colors duration-300 overflow-visible" style="stroke-linecap: round; stroke-linejoin: round;">
+                    <path d="M181.424 129.796C181.424 129.796 242.924 76.2958 297.424 44.7958C351.924 13.2958 433.424 8.29579 433.424 8.29579C433.424 8.29579 324.424 218.796 257.424 324.796C190.424 430.796 126.924 502.296 102.924 525.796C78.9243 549.296 27.9243 577.796 12.9243 566.296C-2.07565 554.796 14.9243 493.296 52.9243 447.796C90.9244 402.296 251.424 294.796 308.424 260.296C365.424 225.796 408.424 209.796 414.424 207.796C420.424 205.796 362.924 307.296 374.424 298.296C385.924 289.296 443.924 234.796 464.924 216.796C485.924 198.796 516.424 183.796 508.424 198.796C500.424 213.796 494.424 223.296 485.924 240.296C477.424 257.296 469.924 273.296 479.424 272.796C488.924 272.296 510.424 266.796 534.924 250.296C559.424 233.796 735.924 66.2958 735.924 66.2958L574.924 219.296C574.924 219.296 796.424 191.796 785.424 197.796C774.424 203.796 619.424 298.296 619.424 298.296L888.924 54.2958C888.924 54.2958 796.924 273.296 785.424 298.296C773.924 323.296 992.424 170.296 1036.42 143.296C1080.42 116.296 1103.92 96.7958 1100.92 78.7958C1097.92 60.7958 1081.92 52.7958 1058.92 54.2958C1035.92 55.7958 983.924 85.7958 973.924 122.796C963.924 159.796 1060.42 219.296 1030.92 252.296C1001.42 285.296 976.924 309.296 938.424 307.296C899.924 305.296 907.924 231.796 907.924 231.796" stroke="black" stroke-width="15"/>
                     <path d="M37.4244 390.296L1188.92 293.296L1040.42 278.796L1150.42 369.296L1111.92 229.796L1063.42 362.796L1186.92 283.796" stroke="currentColor" stroke-width="25"/>
                 </svg>
-            </div>
+            </a>
+            
+            <!-- Navigation Links -->
             <div class="hidden md:flex space-x-8 text-sm font-bold tracking-wide">
-                <button onclick="scrollToSection('about')" class="hover:text-pop-yellow transition-colors focus:outline-none uppercase">About</button>
-                <button onclick="scrollToSection('works')" class="hover:text-pop-yellow transition-colors focus:outline-none uppercase">Works</button>
-                <button onclick="scrollToSection('contact')" class="hover:text-pop-yellow transition-colors focus:outline-none uppercase">Contact</button>
+                <a href="./about/" class="hover:text-pop-yellow transition-colors uppercase">About</a>
+                <a href="./works/" class="hover:text-pop-yellow transition-colors uppercase">Works</a>
+                <a href="./contact/" class="hover:text-pop-yellow transition-colors uppercase">Contact</a>
             </div>
         </div>
     </nav>
@@ -134,14 +141,14 @@
     <!-- Hero Section -->
     <section class="min-h-screen flex flex-col justify-center items-center relative overflow-hidden pt-20">
         <div class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-            <!-- Abstract Background Shapes -->
+            <!-- Background Shapes -->
             <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-pop-yellow rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob"></div>
             <div class="absolute top-1/3 right-1/4 w-72 h-72 bg-orange-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-2000"></div>
             <div class="absolute bottom-1/4 left-1/2 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-4000"></div>
         </div>
 
         <div class="z-10 w-full px-4 flex flex-col items-center">
-            <!-- SVG Container -->
+            <!-- SVG Main Visual -->
             <div class="w-full max-w-4xl px-4 mb-8">
                 <svg id="mySvg" viewBox="0 0 1190 577" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M181.424 129.796C181.424 129.796 242.924 76.2958 297.424 44.7958C351.924 13.2958 433.424 8.29579 433.424 8.29579C433.424 8.29579 324.424 218.796 257.424 324.796C190.424 430.796 126.924 502.296 102.924 525.796C78.9243 549.296 27.9243 577.796 12.9243 566.296C-2.07565 554.796 14.9243 493.296 52.9243 447.796C90.9244 402.296 251.424 294.796 308.424 260.296C365.424 225.796 408.424 209.796 414.424 207.796C420.424 205.796 362.924 307.296 374.424 298.296C385.924 289.296 443.924 234.796 464.924 216.796C485.924 198.796 516.424 183.796 508.424 198.796C500.424 213.796 494.424 223.296 485.924 240.296C477.424 257.296 469.924 273.296 479.424 272.796C488.924 272.296 510.424 266.796 534.924 250.296C559.424 233.796 735.924 66.2958 735.924 66.2958L574.924 219.296C574.924 219.296 796.424 191.796 785.424 197.796C774.424 203.796 619.424 298.296 619.424 298.296L888.924 54.2958C888.924 54.2958 796.924 273.296 785.424 298.296C773.924 323.296 992.424 170.296 1036.42 143.296C1080.42 116.296 1103.92 96.7958 1100.92 78.7958C1097.92 60.7958 1081.92 52.7958 1058.92 54.2958C1035.92 55.7958 983.924 85.7958 973.924 122.796C963.924 159.796 1060.42 219.296 1030.92 252.296C1001.42 285.296 976.924 309.296 938.424 307.296C899.924 305.296 907.924 231.796 907.924 231.796" stroke="black" stroke-width="15"/>
@@ -153,27 +160,100 @@
                 <p class="text-sm md:text-base font-bold tracking-widest uppercase text-gray-500">
                     Composer / Mixing / Sound
                 </p>
-                <!-- Changed Button Role: Replay -> View Works CTA -->
-                <button onclick="scrollToSection('works')" class="mt-8 px-8 py-3 bg-white border-2 border-pop-dark rounded-full text-sm font-black tracking-widest hover:bg-pop-yellow transition-all duration-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] inline-flex items-center gap-2 group">
+                <!-- Link to Works Directory -->
+                <a href="./works/" class="mt-8 px-8 py-3 bg-white border-2 border-pop-dark rounded-full text-sm font-black tracking-widest hover:bg-pop-yellow transition-all duration-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] inline-flex items-center gap-2 group">
                     VIEW WORKS
-                    <i data-lucide="arrow-down" width="16" height="16" class="group-hover:translate-y-1 transition-transform"></i>
-                </button>
+                    <i data-lucide="arrow-right" width="16" height="16" class="group-hover:translate-x-1 transition-transform"></i>
+                </a>
             </div>
         </div>
 
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer text-pop-dark bg-white p-2 rounded-full border border-gray-200" onclick="scrollToSection('about')">
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer text-pop-dark bg-white p-2 rounded-full border border-gray-200" onclick="document.getElementById('latest-works').scrollIntoView({ behavior: 'smooth' })">
             <i data-lucide="arrow-down" width="24" height="24"></i>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-24 bg-white relative">
-        <div class="max-w-4xl mx-auto px-6 relative z-10">
+    <!-- Latest Works (Preview of ./works/) -->
+    <section id="latest-works" class="py-24 bg-pop-gray">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-5xl font-black text-center mb-12 text-pop-dark italic transform rotate-1">
+                <span class="border-b-8 border-pop-yellow inline-block leading-[0.5]">LATEST WORKS</span>
+            </h2>
+
+            <!-- Grid (Showing only 3 items for Landing) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <!-- Item 1: Link to detailed page -->
+                <a href="./works/418-01.html" class="block group bg-white rounded-2xl p-4 border-2 border-gray-100 hover:border-pop-yellow transition-all duration-300 hover:-translate-y-1">
+                    <div class="aspect-video bg-pop-yellow rounded-xl mb-4 flex items-center justify-center relative overflow-hidden">
+                        <i data-lucide="music" width="40" height="40" class="text-pop-dark opacity-50 group-hover:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute bottom-3 right-3 bg-white p-2 rounded-full border border-pop-dark opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                            <i data-lucide="play" width="20" height="20" class="text-pop-dark fill-current"></i>
+                        </div>
+                    </div>
+                    <div class="px-2 pb-2">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-bold bg-gray-100 text-gray-500 px-2 py-1 rounded uppercase">Original</span>
+                            <i data-lucide="external-link" width="16" height="16" class="text-gray-300 group-hover:text-pop-dark transition-colors"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-pop-dark mb-1">Summer Haze</h3>
+                        <p class="text-sm text-gray-500 font-medium">ピアノとアンビエントノイズを融合させたオリジナル楽曲。</p>
+                    </div>
+                </a>
+
+                <!-- Item 2 -->
+                <a href="./works/418-02.html" class="block group bg-white rounded-2xl p-4 border-2 border-gray-100 hover:border-pop-yellow transition-all duration-300 hover:-translate-y-1">
+                    <div class="aspect-video bg-gray-800 rounded-xl mb-4 flex items-center justify-center relative overflow-hidden">
+                        <i data-lucide="mic-2" width="40" height="40" class="text-pop-yellow opacity-80 group-hover:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute bottom-3 right-3 bg-pop-yellow p-2 rounded-full border border-pop-dark opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                            <i data-lucide="play" width="20" height="20" class="text-pop-dark fill-current"></i>
+                        </div>
+                    </div>
+                    <div class="px-2 pb-2">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-bold bg-gray-100 text-gray-500 px-2 py-1 rounded uppercase">Mix Work</span>
+                            <i data-lucide="external-link" width="16" height="16" class="text-gray-300 group-hover:text-pop-dark transition-colors"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-pop-dark mb-1">Midnight Drive</h3>
+                        <p class="text-sm text-gray-500 font-medium">ボーカルの質感を重視したミックスダウンを担当。</p>
+                    </div>
+                </a>
+
+                <!-- Item 3 -->
+                <a href="./works/418-03.html" class="block group bg-white rounded-2xl p-4 border-2 border-gray-100 hover:border-pop-yellow transition-all duration-300 hover:-translate-y-1">
+                    <div class="aspect-video bg-blue-100 rounded-xl mb-4 flex items-center justify-center relative overflow-hidden">
+                        <i data-lucide="music" width="40" height="40" class="text-blue-400 group-hover:scale-125 transition-transform duration-500"></i>
+                        <div class="absolute bottom-3 right-3 bg-white p-2 rounded-full border border-pop-dark opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                            <i data-lucide="play" width="20" height="20" class="text-pop-dark fill-current"></i>
+                        </div>
+                    </div>
+                    <div class="px-2 pb-2">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs font-bold bg-gray-100 text-gray-500 px-2 py-1 rounded uppercase">Soundtrack</span>
+                            <i data-lucide="external-link" width="16" height="16" class="text-gray-300 group-hover:text-pop-dark transition-colors"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-pop-dark mb-1">Blue Hour</h3>
+                        <p class="text-sm text-gray-500 font-medium">短編映像作品のための劇伴制作。</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- View All Button -->
+            <div class="text-center">
+                <a href="./works/" class="px-10 py-3 bg-white border-2 border-gray-200 rounded-full text-gray-500 font-bold tracking-widest hover:border-pop-yellow hover:text-pop-dark transition-all inline-flex items-center gap-2">
+                    VIEW ALL WORKS
+                    <i data-lucide="arrow-right" width="16" height="16"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section (Preview of ./about/) -->
+    <section class="py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
             <h2 class="text-5xl font-black text-center mb-16 text-pop-dark italic transform -rotate-2">
                 <span class="border-b-8 border-pop-yellow inline-block leading-[0.5]">ABOUT</span>
             </h2>
             
-            <!-- Removed heavy shadows, added border-2 for flat pop look -->
             <div class="flex flex-col md:flex-row items-center gap-12 bg-gray-50 p-8 rounded-3xl border-2 border-gray-100">
                 <div class="w-full md:w-1/3 flex justify-center">
                     <div class="w-48 h-48 rounded-full bg-pop-yellow flex items-center justify-center relative overflow-hidden group border-4 border-white">
@@ -190,15 +270,9 @@
                         作曲活動を中心に、ミックス・マスタリングまで、音に関わるあらゆる制作を行っています。<br>
                         白のキャンバスに色を乗せるように、静寂の中に音を紡ぎます。
                     </p>
-                    <div class="flex justify-center md:justify-start space-x-4 pt-4">
-                        <a href="#" class="p-3 bg-white border-2 border-gray-200 rounded-xl hover:border-pop-yellow hover:text-pop-yellow transition-all text-gray-400">
-                            <i data-lucide="twitter" width="24" height="24"></i>
-                        </a>
-                        <a href="#" class="p-3 bg-white border-2 border-gray-200 rounded-xl hover:border-pop-yellow hover:text-pop-yellow transition-all text-gray-400">
-                            <i data-lucide="instagram" width="24" height="24"></i>
-                        </a>
-                        <a href="#" class="p-3 bg-white border-2 border-gray-200 rounded-xl hover:border-pop-yellow hover:text-pop-yellow transition-all text-gray-400">
-                            <i data-lucide="disc" width="24" height="24"></i>
+                    <div class="pt-4">
+                        <a href="./about/" class="text-pop-dark font-bold border-b-2 border-pop-yellow hover:bg-pop-yellow hover:border-transparent transition-colors px-1">
+                            Read More &rarr;
                         </a>
                     </div>
                 </div>
@@ -206,177 +280,22 @@
         </div>
     </section>
 
-    <!-- Works Section -->
-    <section id="works" class="py-24 bg-pop-gray">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-5xl font-black text-center mb-12 text-pop-dark italic transform rotate-1">
-                <span class="border-b-8 border-pop-yellow inline-block leading-[0.5]">WORKS</span>
-            </h2>
-
-            <!-- Filter Tabs -->
-            <div class="flex flex-wrap justify-center mb-12 gap-4" id="filter-tabs">
-                <!-- Removed drop shadows from tabs, kept hard shadow or simple border -->
-                <button onclick="filterWorks('all')" class="tab-btn active px-6 py-2 rounded-full font-bold border-2 transition-all duration-300 bg-pop-dark text-pop-yellow border-pop-dark scale-105" data-filter="all">
-                    ALL
-                </button>
-                <button onclick="filterWorks('composition')" class="tab-btn px-6 py-2 rounded-full font-bold border-2 transition-all duration-300 bg-white text-gray-500 border-gray-200 hover:border-pop-yellow hover:text-pop-dark" data-filter="composition">
-                    COMPOSITION
-                </button>
-                <button onclick="filterWorks('mixing')" class="tab-btn px-6 py-2 rounded-full font-bold border-2 transition-all duration-300 bg-white text-gray-500 border-gray-200 hover:border-pop-yellow hover:text-pop-dark" data-filter="mixing">
-                    MIXING
-                </button>
-                <button onclick="filterWorks('other')" class="tab-btn px-6 py-2 rounded-full font-bold border-2 transition-all duration-300 bg-white text-gray-500 border-gray-200 hover:border-pop-yellow hover:text-pop-dark" data-filter="other">
-                    OTHER
-                </button>
-            </div>
-
-            <!-- Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="works-grid">
-                <!-- Item 1 - Removed shadow-lg, kept border-2 -->
-                <div class="work-item group bg-white rounded-2xl p-4 border-2 border-gray-100 hover:border-pop-yellow transition-all duration-300 hover:-translate-y-1" data-category="composition">
-                    <div class="aspect-video bg-pop-yellow rounded-xl mb-4 flex items-center justify-center relative overflow-hidden">
-                        <i data-lucide="music" width="40" height="40" class="text-pop-dark opacity-50 group-hover:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
-                        <div class="absolute bottom-3 right-3 bg-white p-2 rounded-full border border-pop-dark opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                            <i data-lucide="play" width="20" height="20" class="text-pop-dark fill-current"></i>
-                        </div>
-                    </div>
-                    <div class="px-2 pb-2">
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-xs font-bold bg-gray-100 text-gray-500 px-2 py-1 rounded uppercase">Original</span>
-                            <i data-lucide="external-link" width="16" height="16" class="text-gray-300 group-hover:text-pop-dark transition-colors cursor-pointer"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-pop-dark mb-1">Summer Haze</h3>
-                        <p class="text-sm text-gray-500 font-medium">ピアノとアンビエントノイズを融合させたオリジナル楽曲。</p>
-                    </div>
-                </div>
-
-                <!-- Item 2 -->
-                <div class="work-item group bg-white rounded-2xl p-4 border-2 border-gray-100 hover:border-pop-yellow transition-all duration-300 hover:-translate-y-1" data-category="mixing">
-                    <div class="aspect-video bg-gray-800 rounded-xl mb-4 flex items-center justify-center relative overflow-hidden">
-                        <i data-lucide="mic-2" width="40" height="40" class="text-pop-yellow opacity-80 group-hover:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute bottom-3 right-3 bg-pop-yellow p-2 rounded-full border border-pop-dark opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                            <i data-lucide="play" width="20" height="20" class="text-pop-dark fill-current"></i>
-                        </div>
-                    </div>
-                    <div class="px-2 pb-2">
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-xs font-bold bg-gray-100 text-gray-500 px-2 py-1 rounded uppercase">Mix Work</span>
-                            <i data-lucide="external-link" width="16" height="16" class="text-gray-300 group-hover:text-pop-dark transition-colors cursor-pointer"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-pop-dark mb-1">Midnight Drive</h3>
-                        <p class="text-sm text-gray-500 font-medium">ボーカルの質感を重視したミックスダウンを担当。</p>
-                    </div>
-                </div>
-
-                <!-- Item 3 -->
-                <div class="work-item group bg-white rounded-2xl p-4 border-2 border-gray-100 hover:border-pop-yellow transition-all duration-300 hover:-translate-y-1" data-category="composition">
-                    <div class="aspect-video bg-blue-100 rounded-xl mb-4 flex items-center justify-center relative overflow-hidden">
-                        <i data-lucide="music" width="40" height="40" class="text-blue-400 group-hover:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute bottom-3 right-3 bg-white p-2 rounded-full border border-pop-dark opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                            <i data-lucide="play" width="20" height="20" class="text-pop-dark fill-current"></i>
-                        </div>
-                    </div>
-                    <div class="px-2 pb-2">
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-xs font-bold bg-gray-100 text-gray-500 px-2 py-1 rounded uppercase">Soundtrack</span>
-                            <i data-lucide="external-link" width="16" height="16" class="text-gray-300 group-hover:text-pop-dark transition-colors cursor-pointer"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-pop-dark mb-1">Blue Hour</h3>
-                        <p class="text-sm text-gray-500 font-medium">短編映像作品のための劇伴制作。</p>
-                    </div>
-                </div>
-
-                <!-- Item 4 -->
-                <div class="work-item group bg-white rounded-2xl p-4 border-2 border-gray-100 hover:border-pop-yellow transition-all duration-300 hover:-translate-y-1" data-category="mixing">
-                    <div class="aspect-video bg-gray-800 rounded-xl mb-4 flex items-center justify-center relative overflow-hidden">
-                        <i data-lucide="mic-2" width="40" height="40" class="text-pop-yellow opacity-80 group-hover:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute bottom-3 right-3 bg-pop-yellow p-2 rounded-full border border-pop-dark opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                            <i data-lucide="play" width="20" height="20" class="text-pop-dark fill-current"></i>
-                        </div>
-                    </div>
-                    <div class="px-2 pb-2">
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-xs font-bold bg-gray-100 text-gray-500 px-2 py-1 rounded uppercase">Mix & Mastering</span>
-                            <i data-lucide="external-link" width="16" height="16" class="text-gray-300 group-hover:text-pop-dark transition-colors cursor-pointer"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-pop-dark mb-1">Artist A - 'Dream'</h3>
-                        <p class="text-sm text-gray-500 font-medium">バンドサウンドのダイナミクスを整えるマスタリング。</p>
-                    </div>
-                </div>
-
-                <!-- Item 5 -->
-                <div class="work-item group bg-white rounded-2xl p-4 border-2 border-gray-100 hover:border-pop-yellow transition-all duration-300 hover:-translate-y-1" data-category="other">
-                    <div class="aspect-video bg-orange-100 rounded-xl mb-4 flex items-center justify-center relative overflow-hidden">
-                        <i data-lucide="volume-2" width="40" height="40" class="text-orange-400 group-hover:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute bottom-3 right-3 bg-white p-2 rounded-full border border-pop-dark opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                            <i data-lucide="play" width="20" height="20" class="text-pop-dark fill-current"></i>
-                        </div>
-                    </div>
-                    <div class="px-2 pb-2">
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-xs font-bold bg-gray-100 text-gray-500 px-2 py-1 rounded uppercase">Jingle</span>
-                            <i data-lucide="external-link" width="16" height="16" class="text-gray-300 group-hover:text-pop-dark transition-colors cursor-pointer"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-pop-dark mb-1">Podcast Intro</h3>
-                        <p class="text-sm text-gray-500 font-medium">Webラジオのオープニングジングル制作。</p>
-                    </div>
-                </div>
-
-                <!-- Item 6 -->
-                <div class="work-item group bg-white rounded-2xl p-4 border-2 border-gray-100 hover:border-pop-yellow transition-all duration-300 hover:-translate-y-1" data-category="composition">
-                    <div class="aspect-video bg-pop-yellow rounded-xl mb-4 flex items-center justify-center relative overflow-hidden">
-                        <i data-lucide="music" width="40" height="40" class="text-pop-dark opacity-50 group-hover:scale-125 transition-transform duration-500"></i>
-                        <div class="absolute bottom-3 right-3 bg-white p-2 rounded-full border border-pop-dark opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                            <i data-lucide="play" width="20" height="20" class="text-pop-dark fill-current"></i>
-                        </div>
-                    </div>
-                    <div class="px-2 pb-2">
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-xs font-bold bg-gray-100 text-gray-500 px-2 py-1 rounded uppercase">EP</span>
-                            <i data-lucide="external-link" width="16" height="16" class="text-gray-300 group-hover:text-pop-dark transition-colors cursor-pointer"></i>
-                        </div>
-                        <h3 class="text-lg font-bold text-pop-dark mb-1">Lo-fi Beats Vol.1</h3>
-                        <p class="text-sm text-gray-500 font-medium">作業用BGMとして制作したローファイヒップホップ集。</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 bg-white">
+    <!-- Contact Section (Link to ./contact/) -->
+    <section class="py-24 bg-white border-t border-gray-100">
         <div class="max-w-2xl mx-auto px-6 text-center">
             <h2 class="text-5xl font-black text-center mb-8 text-pop-dark italic transform -rotate-1">
                 <span class="border-b-8 border-pop-yellow inline-block leading-[0.5]">CONTACT</span>
             </h2>
             <p class="text-gray-600 font-medium mb-12">
                 楽曲制作、ミックス・マスタリングのご依頼やご相談は、<br class="hidden md:block" />
-                以下のフォームまたはメールアドレスよりお気軽にご連絡ください。
+                お問い合わせページよりお気軽にご連絡ください。
             </p>
             
-            <form class="space-y-6 text-left bg-gray-50 p-8 rounded-3xl border-2 border-gray-100" onsubmit="event.preventDefault()">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold uppercase tracking-wider text-pop-dark">Name</label>
-                        <input type="text" class="w-full bg-white border-2 border-gray-200 p-3 rounded-xl focus:outline-none focus:border-pop-yellow transition-colors text-pop-dark font-medium" placeholder="お名前">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold uppercase tracking-wider text-pop-dark">Email</label>
-                        <input type="email" class="w-full bg-white border-2 border-gray-200 p-3 rounded-xl focus:outline-none focus:border-pop-yellow transition-colors text-pop-dark font-medium" placeholder="メールアドレス">
-                    </div>
-                </div>
-                <div class="space-y-2">
-                    <label class="text-xs font-bold uppercase tracking-wider text-pop-dark">Message</label>
-                    <textarea rows="6" class="w-full bg-white border-2 border-gray-200 p-3 rounded-xl focus:outline-none focus:border-pop-yellow transition-colors text-pop-dark font-medium" placeholder="お問い合わせ内容"></textarea>
-                </div>
-                <div class="text-center pt-4">
-                    <button class="px-12 py-4 bg-pop-dark text-pop-yellow font-black text-sm tracking-widest hover:bg-gray-800 transition-colors rounded-full shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] border-2 border-pop-dark">
-                        SEND MESSAGE
-                    </button>
-                </div>
-            </form>
+            <div class="text-center pt-4">
+                <a href="./contact/" class="px-12 py-4 bg-pop-dark text-pop-yellow font-black text-sm tracking-widest hover:bg-gray-800 transition-colors rounded-full shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] border-2 border-pop-dark inline-block">
+                    CONTACT ME
+                </a>
+            </div>
 
             <div class="mt-16 flex items-center justify-center space-x-2 text-gray-400">
                 <i data-lucide="mail" width="20" height="20"></i>
@@ -392,21 +311,13 @@
         </p>
     </footer>
 
-    <!-- Script for Logic -->
+    <!-- Script: Main Logic -->
     <script>
         // Initialize Icons
         lucide.createIcons();
 
         // Update Year
         document.getElementById('year').textContent = new Date().getFullYear();
-
-        // Scroll to Section Function
-        function scrollToSection(id) {
-            const element = document.getElementById(id);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
 
         // Navbar Scroll Effect
         const navbar = document.getElementById('navbar');
@@ -420,65 +331,23 @@
             }
         });
 
-        // Works Filtering Logic
-        function filterWorks(category) {
-            // Update Tab Styles
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => {
-                if (btn.dataset.filter === category) {
-                    // Active Style (Pop Dark + Yellow Text)
-                    btn.classList.add('bg-pop-dark', 'text-pop-yellow', 'border-pop-dark', 'scale-105');
-                    btn.classList.remove('bg-white', 'text-gray-500', 'border-gray-200');
-                } else {
-                    // Inactive Style
-                    btn.classList.remove('bg-pop-dark', 'text-pop-yellow', 'border-pop-dark', 'scale-105');
-                    btn.classList.add('bg-white', 'text-gray-500', 'border-gray-200');
-                }
-            });
-
-            // Filter Items with Animation
-            const items = document.querySelectorAll('.work-item');
-            items.forEach(item => {
-                if (category === 'all' || item.dataset.category === category) {
-                    item.style.display = 'block';
-                    setTimeout(() => {
-                        item.style.opacity = '1';
-                        item.style.transform = 'translateY(0)';
-                    }, 10);
-                } else {
-                    item.style.opacity = '0';
-                    item.style.transform = 'translateY(20px)';
-                    setTimeout(() => {
-                        item.style.display = 'none';
-                    }, 300);
-                }
-            });
-        }
-
-        // SVG Animation Logic
-        function startAnimation() {
+        // Main SVG Animation Logic
+        function startMainAnimation() {
             const svg = document.getElementById('mySvg');
-
-            // 以前の実行で作成された黄色いパス（highlight-path）があれば削除してリセット
             const existingHighlights = svg.querySelectorAll('.highlight-path');
             existingHighlights.forEach(el => el.remove());
 
-            // オリジナルのパス（黒にする予定のパス）を取得
             const originalPaths = Array.from(svg.querySelectorAll('path'));
-            
             let currentDelay = 0;
             const speed = 1500; 
             const lag = 0.1; 
 
             originalPaths.forEach((path) => {
-                // 黄色い線（先行）を作成
                 const yellowPath = path.cloneNode(true);
                 yellowPath.classList.add('highlight-path');
                 yellowPath.setAttribute('stroke', '#FFD700'); 
-                
                 svg.insertBefore(yellowPath, path);
 
-                // アニメーションのリセット
                 [path, yellowPath].forEach(p => {
                     p.style.animation = 'none';
                     p.style.strokeDasharray = '';
@@ -486,46 +355,65 @@
                     void p.offsetWidth;
                 });
 
-                // パスの長さを取得
                 const length = path.getTotalLength();
                 const duration = length / speed;
 
-                // 共通の描画設定
                 [path, yellowPath].forEach(p => {
                     p.style.strokeDasharray = length;
                     p.style.strokeDashoffset = length;
                 });
                 
-                // --- アニメーション設定 ---
-                
-                // 1. 黄色い線（先行）
                 yellowPath.style.animation = `drawStroke ${duration}s ease-in-out forwards ${currentDelay}s`;
-
-                // 2. 黒い線（後追）
                 path.style.animation = `drawStroke ${duration}s ease-in-out forwards ${currentDelay + lag}s`;
-
                 currentDelay += duration;
             });
         }
 
-        // Opening Animation Logic
-        window.onload = function() {
+        // Opening Animation Logic (Loading)
+        function initOpeningAnimation() {
+            const path = document.getElementById('opening-path');
+            const svg = document.querySelector('.opening-svg');
+            const length = path.getTotalLength();
+
+            path.style.strokeDasharray = `${length} ${length + 100}`;
+            path.style.strokeDashoffset = length;
+            
+            // Show SVG when ready
+            requestAnimationFrame(() => {
+                svg.style.transition = 'opacity 0.2s';
+                svg.style.opacity = '1';
+            });
+
+            path.animate([
+                { strokeDashoffset: length, offset: 0 },
+                { strokeDashoffset: 0, offset: 0.25 }, // 2s
+                { strokeDashoffset: 0, offset: 0.5 },  // 4s
+                { strokeDashoffset: -length, offset: 0.75 }, // 6s
+                { strokeDashoffset: -length, offset: 1 } // 8s
+            ], {
+                duration: 8000, 
+                iterations: Infinity,
+                easing: 'linear'
+            });
+        }
+
+        function stopOpening() {
             const overlay = document.getElementById('opening-overlay');
             const body = document.body;
 
-            // Wait 1.5 seconds then slide up the overlay
-            setTimeout(() => {
-                overlay.classList.add('animate-slide-up');
-                
-                // Remove overflow hidden from body
-                body.classList.remove('opening-active');
-                
-                // Start the SVG animation after the curtain goes up
-                setTimeout(() => {
-                    startAnimation();
-                }, 600); 
+            overlay.classList.add('fade-out');
+            body.classList.remove('opening-active');
 
-            }, 1500);
+            setTimeout(() => {
+                startMainAnimation();
+            }, 500);
+        }
+
+        window.onload = function() {
+            initOpeningAnimation();
+            setTimeout(() => {
+                stopOpening();
+            }, 3500); 
         };
     </script>
 </body>
